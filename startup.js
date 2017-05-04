@@ -1,0 +1,130 @@
+
+var indata_by_name = {};
+
+function selectTab (evt, tabName) {
+    console.log('selectTab ' + tabName);
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("contenttab");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    var contentName = tabName.replace('btn_','info_');
+    document.getElementById(contentName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+
+var makeTreeData = function(id) {
+    var od = [];
+    for (var i=0; i<id.length; i++) {
+        var leafdata = id[i];
+        var leaf = {};
+        leaf.icon = 'rt_chev_32.png';
+        leaf.id = leafdata.name;
+        leaf.text = leafdata.name;
+        leaf.parent = leafdata.parent ? leafdata.parent : '#';
+        od.push(leaf);
+    }
+    return od;
+};
+
+
+var goFetch = function(target, resource) {
+    var xhr = new XMLHttpRequest();
+    xhr.addEventListener('load',function(e) {
+        console.log(e);
+        target.innerHTML = xhr.response;
+    });
+    xhr.open('GET',resource);
+    xhr.send();
+};
+
+var populateTabs = function(item_id) {
+    var i;
+    console.log('populateTabs: ' + item_id);
+
+    var tabLinksDiv = document.getElementById('tab_buttons');
+    while (tabLinksDiv.firstChild) {
+        tabLinksDiv.removeChild(tabLinksDiv.firstChild);
+    }
+    var infosDiv = document.getElementById('info_blobs');
+    while (infosDiv.firstChild) {
+        infosDiv.removeChild(infosDiv.firstChild);
+    }
+
+    document.getElementById('leafname').innerText = item_id;
+    var leafdata = indata_by_name[item_id];
+
+    var first_button = null;
+    if (leafdata.hasOwnProperty('info')) {
+        var tab_ids = Object.keys(leafdata.info);
+        for (i=0; i<tab_ids.length; i++) {
+            var tabbutton = document.createElement('button');
+            if (i===0) first_button = tabbutton;
+            var tab_id = tab_ids[i];
+            tabbutton.id = 'btn_' + tab_id;
+            tabbutton.innerText = leafdata.info[tab_id].name;
+            tabbutton.className = 'tablinks';
+            /* jshint loopfunc: true */
+            tabbutton.addEventListener('click', function(ev) {
+                selectTab(ev,ev.srcElement.id);
+            });
+            tabLinksDiv.appendChild(tabbutton);
+
+            var target = document.createElement('div');
+            var target_id = 'info_' + tab_id;
+            target.id = target_id;
+            if (leafdata.info[tab_id].hasOwnProperty('dfile')) {
+                goFetch(target,leafdata.info[tab_id].dfile);
+            } else {
+                target.innerText = leafdata.info[tab_id].data;
+            }
+            target.className = 'contenttab';
+            infosDiv.appendChild(target);
+        }
+
+        // kick off a fake event that will select the first
+        // tab
+        var event = new MouseEvent('click', {
+            currentTarget: first_button,
+            srcElement: first_button,
+        });
+        first_button.dispatchEvent(event);
+    }
+};
+
+var setup = function() {
+
+  for (var i=0; i<indata.length; i++) {
+      indata_by_name[indata[i].name] = indata[i];
+  }
+
+  $('#treediv').jstree({
+    'core': {
+      'themes': {
+        'variant': 'large',
+      },
+      'plugin': [ 'wholerow', ],
+      'data': makeTreeData(indata),
+    },
+  });
+
+ $('#treediv').on('changed.jstree', function(e, data) {
+     if (data.action == 'select_node') {
+         var id = data.node.id;
+         populateTabs(id);
+     }
+ });
+
+};
+
+setup();
+
