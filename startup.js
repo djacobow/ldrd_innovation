@@ -1,5 +1,5 @@
 
-var indata_by_name = {};
+var indata_by_id = {};
 
 function selectTab (evt, tabName) {
     console.log('selectTab ' + tabName);
@@ -28,7 +28,7 @@ var makeTreeData = function(id) {
         var leafdata = id[i];
         var leaf = {};
         leaf.icon = 'rt_chev_32.png';
-        leaf.id = leafdata.name;
+        leaf.id = leafdata.id;
         leaf.text = leafdata.name;
         leaf.parent = leafdata.parent ? leafdata.parent : '#';
         od.push(leaf);
@@ -47,7 +47,7 @@ var goFetch = function(target, resource) {
     xhr.send();
 };
 
-var populateTabs = function(item_id) {
+var populateTabs = function(item_id, item_path) {
     var i;
     console.log('populateTabs: ' + item_id);
 
@@ -60,8 +60,8 @@ var populateTabs = function(item_id) {
         infosDiv.removeChild(infosDiv.firstChild);
     }
 
-    document.getElementById('leafname').innerText = item_id;
-    var leafdata = indata_by_name[item_id];
+    document.getElementById('leafname').innerText = item_path.join(' \u21A0 ');
+    var leafdata = indata_by_id[item_id];
 
     var first_button = null;
     if (leafdata.hasOwnProperty('info')) {
@@ -104,7 +104,7 @@ var populateTabs = function(item_id) {
 var setup = function() {
 
   for (var i=0; i<indata.length; i++) {
-      indata_by_name[indata[i].name] = indata[i];
+      indata_by_id[indata[i].id] = indata[i];
   }
 
   $('#treediv').jstree({
@@ -112,15 +112,18 @@ var setup = function() {
       'themes': {
         'variant': 'large',
       },
-      'plugin': [ 'wholerow', ],
+      // 'plugin': [ 'wholerow', ],
       'data': makeTreeData(indata),
     },
   });
 
  $('#treediv').on('changed.jstree', function(e, data) {
      if (data.action == 'select_node') {
+         var path = data.node.parents.reverse();
+         path.push(data.node.text);
+         path.shift();
          var id = data.node.id;
-         populateTabs(id);
+         populateTabs(id,path);
      }
  });
 

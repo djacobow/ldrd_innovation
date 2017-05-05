@@ -39,9 +39,16 @@ div.infotab button.active {
 }
 
 
+div#treediv a {
+    white-space: normal !important;
+    height: auto !important;
+    padding: 1px 2px;
+}
+
 div#treediv {
     /* height: 300px; */
-    width: 300px; 
+    /* width: 300px;  */
+    max-width: 300px; 
     float: left;
     overflow-y: auto;
     overflow-x: hidden;
