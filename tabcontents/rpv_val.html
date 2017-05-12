@@ -1,26 +1,50 @@
 
-<div class="heading">A Blob of text</div>
-
-<p class="paragraph">
+<div class="section">
+    <div class="section_heading">A Blob of text</div>
+    <p class="paragraph">
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-</p>
+    </p>
+</div>
 
-<div class="heading">Table 1: Things that are interesting</div>
-<div id="table1"></div>
+<div class="section">
+    <div class="section_heading">Table 1: Things that are interesting</div>
+    <div id="table1"></div>
+</div>
 
-<br>
+<div class="section">
+    <div class="section_heading">Table 2: Things that are slightly less interesting</div>
+    <div id="table2"></div>
+</div>
 
-<div class="heading">Table 2: Things that are slightly less interesting</div>
-<div id="table2"></div>
+
+<div class="section">
+    <div class="section_heading">Table 3: An Embedded Google Sheet</div>
+    <iframe width="90%" height="300" src="https://docs.google.com/spreadsheets/d/1AveqwXLTN2KMqBg2i6jZhvuV6C1brV5qJTLj2O5ojNo/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+</div>
+
+<!-- end html elements - script below here -->
 
 <script type="text/javascript">
+/* 
+ * Example array of arrays for table 1
+ */ 
 var t1data = [
     [ '','a','b','c', ],
     [ 'X',0,1,2,      ],
     [ 'Y',1,2,3,      ],
     [ 'Z',2,3,4,      ],
 ];
+
+/*
+ * convert table 1 array into table and insert it into the appropriate
+ * div
+ */
 document.getElementById('table1').appendChild(makeTableFromArry(t1data));
+
+/*
+ * load a .csv file and use the data to generate a table, then insert
+ * that into a div 
+ */
 makeTableFromCSV(document.getElementById('table2'),'tabcontents/rpv_val_t2.csv');
 
 </script>

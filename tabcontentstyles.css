@@ -1,7 +1,13 @@
 
-div.heading {
+div.section_heading {
     font-size: 125%;
     font-weight: bold;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+div.section {
+    padding-bottom: 2em;
 }
 
 /* Everything here is standard formatting for tables */
