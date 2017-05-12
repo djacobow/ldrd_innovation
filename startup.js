@@ -160,6 +160,10 @@ var setup = function() {
      }
  });
 
+ google.charts.setOnLoadCallback(function() {
+     console.log('google charts loaded');
+ });
+ google.charts.load('current', {'packages':['corechart','bar']});
 };
 
 setup();

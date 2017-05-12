@@ -10,10 +10,24 @@ div.section {
     padding-bottom: 2em;
 }
 
+iframe.basic_sheet {
+    width: 80%;
+    max-width: 800px;
+    height: 300px;
+}
+
+div.basic_chart {
+    background-color: #404040;
+    width: 90%;
+    max-width: 800px;
+    height: 400px;
+}
+
 /* Everything here is standard formatting for tables */
 
 table.csvTable {
-    width: 80%;
+    width: 90%;
+    max-width: 800px;
     border: 0px;
     border-collapse: collapse;
     font-family: Times;
@@ -55,4 +69,14 @@ td.csvColOdd {
 
 td.csvUpperLeft {
     background-color: white !important;
+}
+
+td.csvRefLink {
+    font-size: 80%;
+    text-align: right;
+}
+
+div.refLink {
+    font-size: 80%;
+    text-align: right;
 }
