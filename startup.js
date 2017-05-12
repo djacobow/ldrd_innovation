@@ -29,6 +29,7 @@ function nodeScriptClone(node){
 var indata_by_id = {};
 
 function selectTab (evt, tabName) {
+    console.log('hi');
     console.log('selectTab ' + tabName);
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("contenttab");
@@ -103,7 +104,7 @@ var populateTabs = function(item_id, item_path) {
             tabbutton.className = 'tablinks';
             /* jshint loopfunc: true */
             tabbutton.addEventListener('click', function(ev) {
-                selectTab(ev,ev.srcElement.id);
+                selectTab(ev,ev.target.id);
             });
             tabLinksDiv.appendChild(tabbutton);
 
