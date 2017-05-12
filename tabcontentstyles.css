@@ -1,0 +1,52 @@
+
+div.heading {
+    font-size: 125%;
+    font-weight: bold;
+}
+
+/* Everything here is standard formatting for tables */
+
+table.csvTable {
+    width: 80%;
+    border: 0px;
+    border-collapse: collapse;
+    font-family: Times;
+}
+
+tr.csvTop {
+    font-weight: bold;
+    background-color: #e0f0e0;
+}
+
+tr.csvBottom {
+
+}
+
+tr.csvEven {
+    background-color: #e0e0e0;
+}
+
+tr.csvOdd {
+    background-color: #d0d0d0;
+}
+
+td.csvLeft {
+    font-weight: bold;
+    background-color: #f0f0e0;
+}
+
+td.csvRight {
+
+}
+
+td.csvColEven {
+
+}
+
+td.csvColOdd {
+
+}
+
+td.csvUpperLeft {
+    background-color: white !important;
+}
