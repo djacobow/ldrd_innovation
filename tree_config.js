@@ -18,7 +18,7 @@ var indata = [
        },
        value: {
            name: 'Value Share',
-           data: 'ding dong dooly fraction value',
+           dfile: 'tabcontents/rpv_val.html',
        }
    },
  },

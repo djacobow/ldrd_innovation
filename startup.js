@@ -1,4 +1,31 @@
 
+
+function makeScriptsRun(node) {
+    if (node.tagName === 'SCRIPT') {
+        node.parentNode.replaceChild( nodeScriptClone(node) , node );
+    }
+    else {
+        var i        = 0;
+        var children = node.childNodes;
+        while ( i < children.length ) {
+            makeScriptsRun( children[i++] );
+        }
+    }
+    return node;
+}
+
+function nodeScriptClone(node){
+    var script  = document.createElement("script");
+    script.text = node.innerHTML;
+    for( var i = node.attributes.length-1; i >= 0; i-- ) {
+        script.setAttribute( node.attributes[i].name, node.attributes[i].value );
+    }
+    return script;
+}
+
+
+
+
 var indata_by_id = {};
 
 function selectTab (evt, tabName) {
@@ -42,6 +69,7 @@ var goFetch = function(target, resource) {
     xhr.addEventListener('load',function(e) {
         console.log(e);
         target.innerHTML = xhr.response;
+        makeScriptsRun(target);
     });
     xhr.open('GET',resource);
     xhr.send();
@@ -82,7 +110,11 @@ var populateTabs = function(item_id, item_path) {
             var target = document.createElement('div');
             var target_id = 'info_' + tab_id;
             target.id = target_id;
-            if (leafdata.info[tab_id].hasOwnProperty('dfile')) {
+            if (leafdata.info[tab_id].hasOwnProperty('embed')) {
+                var nif = document.createElement('iframe');
+                nif.src = leafdata.info[tab_id].embed;
+                target.appendChild(nif);
+            } else if (leafdata.info[tab_id].hasOwnProperty('dfile')) {
                 goFetch(target,leafdata.info[tab_id].dfile);
             } else {
                 target.innerText = leafdata.info[tab_id].data;
