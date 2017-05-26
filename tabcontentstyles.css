@@ -3,9 +3,16 @@ div.section_heading {
     font-size: 125%;
     font-weight: bold;
     padding-top: 1em;
-    padding-bottom: 1em;
+    padding-bottom: 0em;
 }
 
+div.section_subheading {
+    font-size: 100%;
+    font-style: italic;
+    padding-top: 1em;
+    padding-bottom: 1em;
+
+}
 div.section {
     padding-bottom: 2em;
 }

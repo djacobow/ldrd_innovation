@@ -1,0 +1,90 @@
+[
+     {
+         "head": "Patents section A",
+         "contents": {
+             "type": "raw_html",
+             "data": "<p>Hello there! This string is <em>just</em> treated <b>like</b> <span style=\"color: blue;\">HTML</span></p>"
+         }
+     },
+     {
+         "head": "Patents section B",
+         "contents": {
+             "paras": [
+                 {
+                     "subhead": "Lorem Ipsum is Always Fun"
+                 },
+                 {
+                     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non magna lacus. In sed pellentesque nulla, facilisis facilisis nisl. Sed volutpat porttitor massa nec molestie. Nullam rhoncus vestibulum lectus, a bibendum justo fermentum a. Cras vestibulum turpis quis fringilla volutpat. Proin ac pulvinar dolor. Donec id elementum felis, vel consectetur ante. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut porta volutpat vulputate. Phasellus commodo venenatis ante, at gravida nisl viverra tincidunt. Sed augue ipsum, euismod ut accumsan et, sagittis vitae augue. Etiam congue nisl nec tortor cursus mollis. Vestibulum sagittis elementum arcu eu porta. Donec feugiat urna viverra purus interdum venenatis."
+                 },
+                 {
+                     "subhead": "I'm told this is Lorem Ipsum is in Hebrew"
+                 },
+                 {
+                     "text": "דת חשמל וכמקובל מלא, משופרות מונחונים היסטוריה על שכל. לוח אם שימושי קישורים. של טבלאות אגרונומיה סדר, בדף כניסה אינטרנט של, ברית רפואה רשימות או חפש. אנא חשמל ערבית את, את מדעי מושגי אחר, ריקוד תחבורה הסביבה כתב של. מאמר משפטים ופיתוחה דת בקר."
+                 }
+             ]
+         }
+     },
+     {
+         "head": "Patents section C",
+         "contents": {
+             "type": "table",
+             "file": "tabcontents/patents_ex1.csv"
+         }
+     },
+     {
+         "head": "Patents section C1",
+         "contents": {
+             "type": "table",
+             "data": [
+                 [ "","a","b","c" ],
+                 [ "X",0,1,2      ],
+                 [ "Y",1,2,3      ],
+                 [ "Z",2,3,4      ]
+             ]
+         }
+     },
+     {
+         "head": "Patents section D",
+         "contents": {
+             "type": "pie",
+             "file": "tabcontents/patents_ex2.csv",
+             "args": {
+                 "head": "Pie Chart Title for Section D"
+             }
+         }
+     },
+     {
+         "head": "Patents section E",
+         "contents": {
+             "type": "bar",
+             "file": "tabcontents/rpv_val_g1.csv",
+             "args": { 
+                 "head": "Bar Chart Title for Section E", 
+                 "vAxis": { 
+                     "head": "Widgets" 
+                 }, 
+                 "hAxis": { 
+                     "head": "Year" 
+                 } 
+             }
+         }
+     },
+     {
+         "head": "Patents section F",
+         "contents": {
+             "type": "line",
+             "file": "tabcontents/rpv_val_g1.csv",
+             "args": { 
+                 "head": "Line Chart Title for Section F"
+             }
+         }
+     },
+     {
+         "head": "Patents section G",
+         "contents": {
+             "type": "gsheet",
+             "src": "https://docs.google.com/spreadsheets/d/1AveqwXLTN2KMqBg2i6jZhvuV6C1brV5qJTLj2O5ojNo/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"
+         }
+     }
+]

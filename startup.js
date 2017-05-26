@@ -104,50 +104,67 @@ var elaborateFromJSON = function(target, data) {
         target.appendChild(div0);
         var div00 = document.createElement('div');
         div00.className = 'section_heading';
-        div00.innerText = d.title;
-        console.log('elaborating: ' + d.title);
-        var contents = d.contents;
+        div00.innerText = d.head;
+        console.log('elaborating: ' + d.head);
         div0.appendChild(div00);
-        var div01 = document.createElement('div');
-        div01.id = target.id + '_' + iter.toString();
-        div0.appendChild(div01);
+
+        var contents = d.contents;
+        if (contents.hasOwnProperty('paras')) {
+            contents.paras.forEach(function(para) {
+                if (para.hasOwnProperty('text')) {
+                    var p = document.createElement('p');
+                    p.className = 'paragraph';
+                    p.innerText = para.text;
+                    div0.appendChild(p);
+                }
+                if (para.hasOwnProperty('subhead')) {
+                    var div01 = document.createElement('div');
+                    div01.className = 'section_subheading';
+                    div01.innerText = para.subhead;
+                    div0.appendChild(div01);
+                }
+            });
+        }
+
+        var div0n = document.createElement('div');
+        div0n.id = target.id + '_' + iter.toString();
+        div0.appendChild(div0n);
 
         extra_args = {};
         if (contents.hasOwnProperty('args')) extra_args = contents.args;
 
+        var type = contents.hasOwnProperty('type') ? contents.type : '';
+
         switch (contents.type) {
             case 'raw_html':
-                div01.innerHTML = contents.data;
+                div0n.innerHTML = contents.data;
                 break;
             case 'paragraphs':
-                contents.paras.forEach(function(para) {
-                    var p = document.createElement('p');
-                    p.className = 'paragraph';
-                    p.innerText = para;
-                    div01.appendChild(p);
-                });
+                // any section can have paras; we deal with them above.
+                // They will always come before the element.
                 break;
             case 'table':
                 if (contents.hasOwnProperty('file')) {
-                    makeTableFromCSV(div01,contents.file);
+                    makeTableFromCSV(div0n,contents.file);
                 } else if (contents.hasOwnProperty('data')) {
-                    target.appendChild(makeTableFromArry(contents.data));
+                    div0n.appendChild(makeTableFromArry(contents.data));
                 }
                 break;
             case 'pie':
             case 'bar':
             case 'line':
-                div01.className = 'basic_chart';
+                div0n.className = 'basic_chart';
                 console.log(contents.type);
-                makeChartFromCSV(contents.type,div01,contents.file, extra_args);
+                makeChartFromCSV(contents.type,div0n,contents.file, extra_args);
                 break;
             case 'gsheet':
                 var ifr = document.createElement('iframe');
                 ifr.className = 'basic_sheet';
                 ifr.src = contents.src;
-                div0.appendChild(ifr);
+                div0n.appendChild(ifr);
                 break;
             default:
+                // do nothing
                 break;
         }
         console.log('appending');
