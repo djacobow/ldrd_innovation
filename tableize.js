@@ -61,7 +61,7 @@ var makeTableFromCSV = function(target, url, classes = default_table_classes) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET',url);
     xhr.onload = function() {
-        console.log(xhr);
+        // console.log(xhr);
         if ((xhr.status === 200) || (xhr.status === 0)){
             var ary = csvToArry(xhr.responseText);
             var reflink = { text: url, href: url };
@@ -79,7 +79,7 @@ var makeChartFromCSV = function(type, target, url, titles) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET',url);
     xhr.onload = function() {
-        console.log(xhr);
+        // console.log(xhr);
         if ((xhr.status === 200) || (xhr.status === 0)){
             var ary = csvToArry(xhr.responseText);
             var reflink = { text: url, href: url };

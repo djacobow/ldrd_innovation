@@ -1,4 +1,4 @@
-
+/* jshint esversion:6 */
 
 function makeScriptsRun(node) {
     if (node.tagName === 'SCRIPT') {
@@ -29,8 +29,7 @@ function nodeScriptClone(node){
 var indata_by_id = {};
 
 function selectTab (evt, tabName) {
-    console.log('hi');
-    console.log('selectTab ' + tabName);
+    // console.log('selectTab ' + tabName);
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("contenttab");
     for (i = 0; i < tabcontent.length; i++) {
@@ -65,15 +64,96 @@ var makeTreeData = function(id) {
 };
 
 
-var goFetch = function(target, resource) {
+var fetchAndDo = function(target, resource, cb = null) {
     var xhr = new XMLHttpRequest();
     xhr.addEventListener('load',function(e) {
-        console.log(e);
-        target.innerHTML = xhr.response;
+        // console.log(e);
+        if (cb) {
+            try {
+                var d = JSON.parse(xhr.response);
+                cb(target,d);
+            } catch(err) {
+                var pre = document.createElement('pre');
+                console.log(err);
+                pre.innerText = JSON.stringify(err,null,2);
+            }
+        } else {
+            target.innerHTML = xhr.response;
+        }
         makeScriptsRun(target);
     });
     xhr.open('GET',resource);
     xhr.send();
+};
+
+function makeid(len) {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for (var i=0; i<len; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+}
+
+var elaborateFromJSON = function(target, data) {
+    console.log('elaborateJSON');
+    var iter = 0;
+    data.forEach(function(d) {
+        var div0 = document.createElement('div');
+        div0.className = 'section';
+        target.appendChild(div0);
+        var div00 = document.createElement('div');
+        div00.className = 'section_heading';
+        div00.innerText = d.title;
+        console.log('elaborating: ' + d.title);
+        var contents = d.contents;
+        div0.appendChild(div00);
+        var div01 = document.createElement('div');
+        div01.id = target.id + '_' + iter.toString();
+        div0.appendChild(div01);
+
+        extra_args = {};
+        if (contents.hasOwnProperty('args')) extra_args = contents.args;
+
+        switch (contents.type) {
+            case 'raw_html':
+                div01.innerHTML = contents.data;
+                break;
+            case 'paragraphs':
+                contents.paras.forEach(function(para) {
+                    var p = document.createElement('p');
+                    p.className = 'paragraph';
+                    p.innerText = para;
+                    div01.appendChild(p);
+                });
+                break;
+            case 'table':
+                if (contents.hasOwnProperty('file')) {
+                    makeTableFromCSV(div01,contents.file);
+                } else if (contents.hasOwnProperty('data')) {
+                    target.appendChild(makeTableFromArry(contents.data));
+                }
+                break;
+            case 'pie':
+            case 'bar':
+            case 'line':
+                div01.className = 'basic_chart';
+                console.log(contents.type);
+                makeChartFromCSV(contents.type,div01,contents.file, extra_args);
+                break;
+            case 'gsheet':
+                var ifr = document.createElement('iframe');
+                ifr.className = 'basic_sheet';
+                ifr.src = contents.src;
+                div0.appendChild(ifr);
+                break;
+            default:
+                break;
+        }
+        console.log('appending');
+        iter += 1;
+    });
+    console.log(data);
 };
 
 var populateTabs = function(item_id, item_path) {
@@ -111,14 +191,17 @@ var populateTabs = function(item_id, item_path) {
             var target = document.createElement('div');
             var target_id = 'info_' + tab_id;
             target.id = target_id;
-            if (leafdata.info[tab_id].hasOwnProperty('embed')) {
+            var tab = leafdata.info[tab_id];
+            if (tab.hasOwnProperty('embed')) {
                 var nif = document.createElement('iframe');
-                nif.src = leafdata.info[tab_id].embed;
+                nif.src = tab.embed;
                 target.appendChild(nif);
-            } else if (leafdata.info[tab_id].hasOwnProperty('dfile')) {
-                goFetch(target,leafdata.info[tab_id].dfile);
+            } else if (tab.hasOwnProperty('htfile')) {
+                fetchAndDo(target,tab.htfile,null);
+            } else if (tab.hasOwnProperty('jsfile')) {
+                fetchAndDo(target,tab.jsfile,elaborateFromJSON);
             } else {
-                target.innerText = leafdata.info[tab_id].data;
+                target.innerText = tab.data;
             }
             target.className = 'contenttab';
             infosDiv.appendChild(target);
@@ -159,12 +242,11 @@ var setup = function() {
          populateTabs(id,path);
      }
  });
-
- google.charts.setOnLoadCallback(function() {
-     console.log('google charts loaded');
- });
- google.charts.load('current', {'packages':['corechart','bar']});
 };
 
-setup();
+google.charts.setOnLoadCallback(function() {
+    console.log('google charts loaded');
+    setup();
+});
+google.charts.load('current', {'packages':['corechart','bar']});
 

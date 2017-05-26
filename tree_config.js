@@ -6,7 +6,29 @@ var indata = [
    info: {
        descr: {
            name: 'Description',
-           dfile: 'tabcontents/rpv_descr.html',
+           htfile: 'tabcontents/rpv_descr.html',
+       },
+       comp: {
+           name: 'Competition',
+           data: 'HHI: 123, blah',
+       },
+       ip: {
+           name: 'Patents',
+           jsfile: 'tabcontents/rpv_patents.json',
+       },
+       value: {
+           name: 'Value Share',
+           htfile: 'tabcontents/rpv_val.html',
+       }
+   },
+ },
+ { name: 'Technology',
+   id: 'rpv_tech',
+   parent: 'rpv',
+   info: {
+       descr: {
+           name: 'Description',
+           htfile: 'tabcontents/rpv_descr.html',
        },
        comp: {
            name: 'Competition',
@@ -17,14 +39,10 @@ var indata = [
            data: 'blee patents',
        },
        value: {
-           name: 'Value Share',
-           dfile: 'tabcontents/rpv_val.html',
+           name: 'Foo Bar Value Share',
+           htfile: 'tabcontents/example.html',
        }
    },
- },
- { name: 'Technology',
-   id: 'rpv_tech',
-   parent: 'rpv',
  },
  { name: 'Module',
    id: 'rpv_tech_module',
