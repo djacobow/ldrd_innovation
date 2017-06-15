@@ -133,6 +133,21 @@ var elaborateFromJSON = function(target, data) {
         extra_args = {};
         if (contents.hasOwnProperty('args')) extra_args = contents.args;
 
+        var copyanchor = null;
+        if (contents.hasOwnProperty('copyright')) {
+            if (contents.copyright.hasOwnProperty('href')) {
+                copyanchor = document.createElement('a');
+                copyanchor.className = 'section_copyright';
+                copyanchor.href = contents.copyright.href;
+                if (contents.copyright.hasOwnProperty('text')) {
+                    copyanchor.innerText = contents.copyright.text;
+                } else {
+                    copyanchor.innerText = contents.copyright.href;
+                }
+            }
+        }
+
+
         var type = contents.hasOwnProperty('type') ? contents.type : '';
 
         switch (contents.type) {
@@ -167,6 +182,16 @@ var elaborateFromJSON = function(target, data) {
                 // do nothing
                 break;
         }
+
+        if (copyanchor) {
+            console.log('FGHIJKL');
+            div0.appendChild(copyanchor);
+            div0c = document.createElement('div');
+            div0c.className = 'section_copyright';
+            div0c.appendChild(copyanchor);
+            div0.appendChild(div0c);
+        }
+
         console.log('appending');
         iter += 1;
     });
@@ -261,9 +286,10 @@ var setup = function() {
  });
 };
 
+google.charts.load('current', {'packages':['corechart','bar']});
+
 google.charts.setOnLoadCallback(function() {
     console.log('google charts loaded');
     setup();
 });
-google.charts.load('current', {'packages':['corechart','bar']});
 

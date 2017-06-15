@@ -51,6 +51,10 @@
              "file": "tabcontents/patents_ex2.csv",
              "args": {
                  "head": "Pie Chart Title for Section D"
+             },
+             "copyright": {
+                 "text": "Copyright XXX, Ding Dong Dooly",
+                 "href": "https://blee.com/blah/bloop"
              }
          }
      },

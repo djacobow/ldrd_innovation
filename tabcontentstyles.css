@@ -13,6 +13,16 @@ div.section_subheading {
     padding-bottom: 1em;
 
 }
+
+div.section_copyright {
+    font-size: 80%;
+    text-align: right;
+}
+
+a.section_copyright {
+    color: green;
+}
+
 div.section {
     padding-bottom: 2em;
 }
