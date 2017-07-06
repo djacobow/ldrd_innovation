@@ -1,0 +1,85 @@
+
+<div class="section">
+    <div class="section_heading">A Blob of text</div>
+    <p class="paragraph">
+    Different blob of text
+    </p>
+</div>
+
+<div class="section">
+    <div class="section_heading">Table 1: Things that are interesting</div>
+    <div id="table1"></div>
+</div>
+
+<div class="section">
+    <div class="section_heading">Table 2: Things that are slightly less interesting</div>
+    <div id="table2"></div>
+</div>
+
+
+<div class="section">
+    <div class="section_heading">Table 3: An Embedded Google Sheet</div>
+    <iframe class="basic_sheet" src="https://docs.google.com/spreadsheets/d/1AveqwXLTN2KMqBg2i6jZhvuV6C1brV5qJTLj2O5ojNo/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+</div>
+
+<div class="section">
+    <div class="section_heading">Figure 1: A Bar Chart</div>
+    <div class="basic_chart" id="figure1"></div>
+</div>
+
+<div class="section">
+    <div class="section_heading">Figure 2: A Pie Chart</div>
+    <div class="basic_chart" id="figure2"></div>
+</div>
+
+<div class="section">
+    <div class="section_heading">Figure 3: A Line Chart</div>
+    <div class="basic_chart" id="figure3"></div>
+</div>
+<!-- end html elements - script below here -->
+
+<script type="text/javascript">
+/* 
+ * Example array of arrays for table 1
+ */ 
+var t1data = [
+    [ '','a','b','c', ],
+    [ 'X',0,1,2,      ],
+    [ 'Y',1,2,3,      ],
+    [ 'Z',2,3,4,      ],
+];
+
+/*
+ * convert table 1 array into table and insert it into the appropriate
+ * div
+ */
+document.getElementById('table1').appendChild(makeTableFromArry(t1data));
+
+/*
+ * load a .csv file and use the data to generate a table, then insert
+ * that into a div 
+ */
+makeTableFromCSV(document.getElementById('table2'),'tabcontents/rpv_val_t2.csv');
+
+/*
+ * load a .csv file and use the data to generate a bar chart, then insert
+ * into a div
+ */
+makeChartFromCSV('bar',document.getElementById('figure1'),'tabcontents/rpv_val_g1.csv',
+    { title: 'This is a Title', vAxis: { title: 'Widgets' }, hAxis: { title: 'Year' } });
+
+/*
+ * load a .csv file and use the data to generate a pie chart, then insert
+ * into a div
+ */
+makeChartFromCSV('pie',document.getElementById('figure2'),'tabcontents/rpv_val_g2.csv',
+    { title: 'My Day' });
+
+/*
+ * load a .csv file and use the data to generate a pie chart, then insert
+ * into a div
+ */
+makeChartFromCSV('line',document.getElementById('figure3'),'tabcontents/rpv_val_g1.csv',
+    { title: 'Now a line chart' });
+
+</script>
