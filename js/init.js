@@ -32,7 +32,7 @@ function nodeScriptClone(node){
 
 
 var selectTab = function (evt, buttonID) {
-    console.log('buttonID: ' + buttonID);
+    // console.log('buttonID: ' + buttonID);
     var i, tabcontent, tablinks;
 
     // Get all elements with class="tablinks" and remove the class "active"
@@ -45,7 +45,7 @@ var selectTab = function (evt, buttonID) {
     evt.currentTarget.className += " active";
 
     var tab_name = buttonID.replace('btn_','');
-    populateTab(document.getElementById('info_blobs'),tab_name);
+    populateTab(document.getElementById('contentdiv'),tab_name);
 };
 
 
@@ -54,7 +54,7 @@ var makeTreeData = function(id) {
     for (var i=0; i<id.length; i++) {
         var leafdata = id[i];
         var leaf = {};
-        leaf.icon = 'rt_chev_32.png';
+        leaf.icon = 'resources/rt_chev_16.png';
         leaf.id = leafdata.id;
         leaf.text = leafdata.name;
         leaf.parent = leafdata.parent ? leafdata.parent : '#';
@@ -63,6 +63,21 @@ var makeTreeData = function(id) {
     return od;
 };
 
+var setContentTabHeight = function() {
+    var c = document.getElementById('contentdiv');
+    var r = c.getBoundingClientRect();
+    var t = r.top;
+    var w = window.innerHeight;
+    var h = w -t -50;
+    if (false) {
+        console.log('w: ' + w);
+        console.log('t: ' + t);
+        console.log('h: ' + h);
+    }
+    c.style.height = h;
+};
+
+window.addEventListener('resize',setContentTabHeight);
 
 // fetch a resource then apply it to a target, or run a callback.
 // Also, make any scripts embedded in the html runnable
@@ -103,11 +118,13 @@ function makeid(len) {
 
 
 var populateTab = function(target, tab_id) {
-    console.log('populateTab');
-    console.log('target');
-    console.log(target);
-    console.log('tab_id');
-    console.log(tab_id);
+    if (false) {
+        console.log('populateTab');
+        console.log('target');
+        console.log(target);
+        console.log('tab_id');
+        console.log(tab_id);
+    }
 
     while (target.firstChild) {
         target.removeChild(target.firstChild);
@@ -141,7 +158,7 @@ var populateTab = function(target, tab_id) {
 
 var setupTabs = function(item_id, item_path) {
     var i;
-    console.log('setupTabs: ' + item_id);
+    // console.log('setupTabs: ' + item_id);
 
     // remove all the tab buttons
     var tabLinksDiv = document.getElementById('tab_buttons');
@@ -150,13 +167,13 @@ var setupTabs = function(item_id, item_path) {
     }
 
     // remove everything in the "content" area
-    var infosDiv = document.getElementById('info_blobs');
+    var infosDiv = document.getElementById('contentdiv');
     while (infosDiv.firstChild) {
         infosDiv.removeChild(infosDiv.firstChild);
     }
 
     // create cute "arrows" at the top of the page
-    document.getElementById('leafname').innerText = item_path.join(' \u21A0 ');
+    //document.getElementById('leafname').innerText = item_path.join(' \u21A0 ');
     leafdata = indata_by_id[item_id];
 
     // create buttons and attach listener
@@ -197,7 +214,7 @@ var setupTree = function() {
   $('#treediv').jstree({
     'core': {
       'themes': {
-        'variant': 'large',
+        // 'variant': 'large',
       },
       // 'plugin': [ 'wholerow', ],
       'data': makeTreeData(indata),
@@ -207,7 +224,6 @@ var setupTree = function() {
  $('#treediv').on('changed.jstree', function(e, data) {
      if (data.action == 'select_node') {
          var path = data.node.parents.reverse();
-         console.log('DATA_NODE');
          path.push(data.node.text);
          path.shift();
 
@@ -222,6 +238,11 @@ var setupTree = function() {
          setupTabs(id,np);
      }
  });
+
+ $('#treediv').on('loaded.jstree', function(e, data) {
+     $('#treediv').jstree().select_node('ngcc');
+ });
+
 };
 
 var init = function() {
@@ -230,6 +251,7 @@ var init = function() {
     google.charts.setOnLoadCallback(function() {
         console.log('google charts loaded');
         setupTree();
+        setContentTabHeight();
     });
 };
 

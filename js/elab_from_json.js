@@ -11,13 +11,13 @@ var elaborateFromJSON = function(target, data) {
         var div00 = document.createElement('div');
         div00.className = 'section_heading';
         div00.innerText = d.head;
-        console.log('elaborating: ' + d.head);
+        // console.log('elaborating: ' + d.head);
         div0.appendChild(div00);
 
         var contents = d.contents;
         if (contents.hasOwnProperty('paras')) {
             contents.paras.forEach(function(para) {
-                console.log('doing para');
+                // console.log('doing para');
                 if (para.hasOwnProperty('subhead')) {
                     var div01 = document.createElement('div');
                     div01.className = 'section_subheading';
@@ -76,7 +76,7 @@ var elaborateFromJSON = function(target, data) {
             case 'bar':
             case 'line':
                 div0n.className = 'basic_chart';
-                console.log(contents.type);
+                // console.log(contents.type);
                 makeChartFromCSV(contents.type,div0n,contents.file, extra_args);
                 break;
             case 'gsheet':
@@ -91,7 +91,6 @@ var elaborateFromJSON = function(target, data) {
         }
 
         if (copyanchor) {
-            console.log('FGHIJKL');
             div0.appendChild(copyanchor);
             div0c = document.createElement('div');
             div0c.className = 'section_copyright';
@@ -99,9 +98,8 @@ var elaborateFromJSON = function(target, data) {
             div0.appendChild(div0c);
         }
 
-        console.log('appending');
+        // console.log('appending');
         iter += 1;
     });
-    console.log(data);
 };
 

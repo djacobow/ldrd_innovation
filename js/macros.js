@@ -197,23 +197,25 @@ var finalizeReferences = function(target, refs) {
     if ((refs === null) || (refs === undefined))  refs = references;
 
     var mentions = target.getElementsByClassName('reference');
-    console.log('MENTIONS');
-    console.log(mentions);
+    if (!mentions.length) return;
+    // console.log('MENTIONS');
+    // console.log(mentions);
     var uses = {};
 
     for (var j=0; j<mentions.length; j++) {
         var refkey = mentions[j].getAttribute('ref');
         if (refkey && refkey.length) {
-            console.log('refkey: ' + refkey);
+            // console.log('refkey: ' + refkey);
             ref_dst_anchor = '#ref_dst_' + refkey;
             ref_src_anchor = '#ref_src_' + j.toString();
             if (refs.hasOwnProperty(refkey)) {
                 var ref = refs[refkey];
-                console.log(ref);
+                // console.log(ref);
                 if (!uses.hasOwnProperty(refkey)) uses[refkey] = [];
                 uses[refkey].push(j);
 
                 var a = document.createElement('a');
+                a.className = 'ref_marker';
                 var b = document.createElement('sup');
                 b.innerText = (j+1).toString();
                 a.href = ref_dst_anchor;

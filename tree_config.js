@@ -669,7 +669,7 @@ var old_tree = [
    info: {
        descr: {
            name: 'Description',
-           htfile: 'tabcontents/rpv_descr.html',
+           htfile: 'examples/rpv_descr.html',
        },
        comp: {
            name: 'Competition',
@@ -677,11 +677,11 @@ var old_tree = [
        },
        ip: {
            name: 'Patents',
-           jsfile: 'tabcontents/rpv_patents.json',
+           jsfile: 'examples/rpv_patents.json',
        },
        value: {
            name: 'Value Share',
-           htfile: 'tabcontents/rpv_val.html',
+           htfile: 'examples/rpv_val.html',
        }
    },
  },
@@ -691,7 +691,7 @@ var old_tree = [
    info: {
        descr: {
            name: 'Description',
-           htfile: 'tabcontents/rpv_descr.html',
+           htfile: 'examples/rpv_descr.html',
        },
        comp: {
            name: 'Competition',
@@ -703,11 +703,11 @@ var old_tree = [
        },
        value: {
            name: 'Foo Bar Value Share',
-           htfile: 'tabcontents/example.html',
+           htfile: 'examples/example.html',
        },
        bleep: {
            name: 'Bleep',
-           htfile: 'tabcontents/example2.html',
+           htfile: 'examples/example2.html',
        }
    },
  },
