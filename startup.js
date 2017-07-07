@@ -111,17 +111,18 @@ var elaborateFromJSON = function(target, data) {
         var contents = d.contents;
         if (contents.hasOwnProperty('paras')) {
             contents.paras.forEach(function(para) {
-                if (para.hasOwnProperty('text')) {
-                    var p = document.createElement('p');
-                    p.className = 'paragraph';
-                    p.innerText = para.text;
-                    div0.appendChild(p);
-                }
+                console.log('doing para');
                 if (para.hasOwnProperty('subhead')) {
                     var div01 = document.createElement('div');
                     div01.className = 'section_subheading';
                     div01.innerText = para.subhead;
                     div0.appendChild(div01);
+                }
+                if (para.hasOwnProperty('text')) {
+                    var p = document.createElement('p');
+                    p.className = 'paragraph';
+                    p.innerText = para.text;
+                    div0.appendChild(p);
                 }
             });
         }
