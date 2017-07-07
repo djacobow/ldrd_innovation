@@ -1,0 +1,151 @@
+
+div.section_heading {
+    font-size: 115%;
+    font-weight: bold;
+    padding-top: 1em;
+    padding-bottom: 0em;
+}
+
+div.section_subheading {
+    font-size: 100%;
+    font-weight: bold;
+    font-style: italic;
+    padding-top: 1em;
+    padding-bottom: 1em;
+
+}
+
+div.table_heading {
+    font-weight: bold;
+}
+
+div.section_copyright {
+    font-size: 80%;
+    text-align: right;
+}
+
+a.section_copyright {
+    color: gray;
+}
+
+div.section {
+    padding-bottom: 2em;
+}
+
+iframe.basic_sheet {
+    width: 80%;
+    max-width: 800px;
+    height: 400px;
+}
+
+div.basic_chart {
+    background-color: #404040;
+    width: 90%;
+    max-width: 800px;
+    height: 400px;
+}
+
+img.image {
+    width: 80%;
+}
+
+
+/* Everything here is standard formatting for tables */
+
+table.csvTable {
+    width: 90%;
+    max-width: 800px;
+    border: 0px;
+    border-collapse: collapse;
+    font-family: courier;
+}
+
+tr.csvTop {
+    font-weight: bold;
+    background-color: #e0f0e0;
+}
+
+tr.csvBottom {
+
+}
+
+tr.csvEven {
+    background-color: #e0e0e0;
+}
+
+tr.csvOdd {
+    background-color: #d0d0d0;
+}
+
+td.csvLeft {
+    font-weight: bold;
+    background-color: #f0f0e0;
+}
+
+td.csvRight {
+
+}
+
+td.csvColEven {
+
+}
+
+td.csvColOdd {
+
+}
+
+td.csvUpperLeft {
+    background-color: white !important;
+}
+
+td.csvRefLink {
+    text-align: right;
+}
+
+td.csvRefLink a:link, td.csvRefLink a:visited {
+    font-family: sans-serif;
+    color: #202020;
+    font-size: 80%;
+}
+td.csvRefLink a:hover {
+    color: #808080;
+}
+
+td.refLink {
+    text-align: right;
+}
+
+td.refLink a:link, td.refLink a:visited {
+    font-family: sans-serif;
+    color: #202020;
+    font-size: 80%;
+}
+td.refLink a:hover {
+    color: #808080;
+}
+
+div.references_container {
+    font-size: 80%;
+}
+div.references_container table tr td {
+    font-size: 80%;
+}
+
+
+a.reflist_link:link, a.reflist_link:visited {
+    font-family: sans-serif;
+    color: #202020;
+}
+a.reflist_link:hover {
+    color: #808080;
+}
+
+
+a.ref_marker:link, a.ref_marker:visited {
+    font-family: sans-serif;
+    color: #202020;
+    text-decoration: none;
+}
+a.ref_marker:hover {
+    color: #808080;
+}
