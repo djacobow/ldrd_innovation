@@ -139,6 +139,7 @@ span.reflist_journal {
     text-decoration: underline;
 }
 a.reflist_link:link, a.reflist_link:visited {
+    text-decoration: none;
     font-family: sans-serif;
     color: #202020;
 }
