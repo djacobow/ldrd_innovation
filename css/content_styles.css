@@ -132,6 +132,12 @@ div.references_container table tr td {
 }
 
 
+span.reflist_title {
+    font-style: italic;
+}
+span.reflist_journal {
+    text-decoration: underline;
+}
 a.reflist_link:link, a.reflist_link:visited {
     font-family: sans-serif;
     color: #202020;

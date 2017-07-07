@@ -262,30 +262,39 @@ var finalizeReferences = function(target, refs) {
         var s0 = document.createElement('span');
 
         var r = refs[use_key];
-        if (r.hasOwnProperty('title')) {
-            var r0 = document.createElement('span');
-            r0.className = 'reflist_title';
-            r0.innerText = r.title;
-            s0.appendChild(r0);
-        }
-        if (r.hasOwnProperty('author')) {
-            var r1 = document.createElement('span');
-            r1.className = 'reflist_author';
-            r1.innerText = ' ' + r.author;
-            s0.appendChild(r1);
-        }
-        if (r.hasOwnProperty('year')) {
-            var r2 = document.createElement('span');
-            r2.className = 'reflist_year';
-            r2.innerText = ' (' + r.year+ ')';
-            s0.appendChild(r2);
-        }
-        if (r.hasOwnProperty('link')) {
-            var r3 = document.createElement('a');
-            r3.className = 'reflist_link';
-            r3.href = r.link;
-            r3.innerText = ' <' + r.link + '>';
-            s0.appendChild(r3);
+        var rs = [];
+        var t;
+
+        var bibElems = [
+            ['title', 'span', 'reflist_title', ['',''] ],
+            ['journal', 'span', 'reflist_journal', ['',''] ],
+            ['author', 'span', 'reflist_author', ['',''] ],
+            ['date', 'span', 'reflist_year', ['(',')'] ],
+            ['link', 'a', 'reflist_link', ['<','>'] ],
+
+        ];
+
+        /*jshint loopfunc: true */
+        bibElems.forEach(function(bibElem) {
+            if (r.hasOwnProperty(bibElem[0]) &&
+                r[bibElem[0]].length) {
+                t = document.createElement(bibElem[1]);
+                t.className = bibElem[2];
+                t.innerText = bibElem[3][0] + r[bibElem[0]] + bibElem[3][1];
+                if (bibElem[1] == 'a') {
+                    t.href = r[bibElem[0]];
+                }
+                rs.push(t);
+            }
+        });
+
+        for (var k=0; k<rs.length; k++) {
+            s0.appendChild(rs[k]);
+            if (k < (rs.length-1)) {
+                var c = document.createElement('span');
+                c.innerText = ', ';
+                s0.appendChild(c);
+            }
         }
         td1.appendChild(s0);
 
