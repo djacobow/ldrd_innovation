@@ -1,0 +1,66 @@
+
+
+<div class="section">
+    <div class="section_heading">Herfindahl-Hirschman Index Methodoloy</div>
+    <p class="paragraph">
+    Blee, blah, bloop.
+    </p>
+</div>
+
+<div class="section">
+    <div class="section_heading">Firms</div>
+    <p class=paragraph">
+    Blee, blah, bloop.<span class="reference" ref="spock"></span>
+    </p>
+    <div id="revenue_table"></div>
+    <div id="quantity_table"></div>
+    <div id="share_table"></div>
+</div>
+
+<div class="section">
+    <div class="section_heading">HHI Estimate</div>
+    <p class=paragraph">
+    Blee, blah, bloop.
+    </p>
+</div>
+
+<div class="section">
+    <div class="section_heading">Emerging Innovations</div>
+    <p class=paragraph">
+    Blee, blah, bloop.
+    </p>
+    <div id="conc_table"></div>
+</div>
+
+<div class="section">
+    <div class="section_heading">Geography</div>
+    <img class="image" src="tabcontents/cleese.jpg">
+</div>
+
+<div class="section">
+    <div class="section_heading">Governance</div>
+    <p class=paragraph">
+    Blee, blah, bloop.
+    </p>
+</div>
+
+<div class="section">
+    <div class="section_heading">Other Strategic Conditions</div>
+    <p class=paragraph">
+    Blee, blah, bloop.
+    </p>
+</div>
+
+
+<div class="references_container" id="refs_container"></div>
+
+<!-- end html elements - script below here -->
+
+<script type="text/javascript">
+
+makeTableFromCSV(document.getElementById('revenue_table'),'tabcontents/dummy.csv','Revenue');
+makeTableFromCSV(document.getElementById('quantity_table'),'tabcontents/dummy.csv','Relevant Quantities');
+makeTableFromCSV(document.getElementById('share_table'),'tabcontents/dummy.csv','Market Share');
+makeTableFromCSV(document.getElementById('conc_table'),'tabcontents/dummy.csv');
+
+</script>

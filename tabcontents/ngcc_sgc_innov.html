@@ -1,0 +1,43 @@
+
+<div class="section">
+    <div class="section_heading">Dominant Design Overview</div>
+    <img class="image" src="tabcontents/cleese.jpg">
+    <p class="paragraph">
+    Blee, blah, bloop.
+    </p>
+</div>
+
+<div class="section">
+    <div class="section_heading">Descriptive Information</div>
+    <p class=paragraph">
+    Blee, blah, bloop.<span class="reference" ref="kirk"></span>
+    </p>
+    <div id="quant_table"></div>
+    <div id="cost_table"></div>
+    <div id="perf_table"></div>
+</div>
+
+<div class="section">
+    <div class="section_heading">Innovation Trends</div>
+    <p class=paragraph">
+    Blee, blah, bloop.
+    </p>
+</div>
+
+<div class="section">
+    <div class="section_heading">Emerging Innovations</div>
+    <p class=paragraph">
+    Blee, blah, bloop.
+    </p>
+
+<div class="references_container" id="refs_container"></div>
+
+<!-- end html elements - script below here -->
+
+<script type="text/javascript">
+
+makeTableFromCSV(document.getElementById('quant_table'),'tabcontents/dummy.csv','Quantities');
+makeTableFromCSV(document.getElementById('cost_table'),'tabcontents/dummy.csv','Costs');
+makeTableFromCSV(document.getElementById('perf_table'),'tabcontents/dummy.csv','Performance');
+
+</script>
