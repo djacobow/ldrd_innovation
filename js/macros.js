@@ -266,11 +266,11 @@ var finalizeReferences = function(target, refs) {
         var t;
 
         var bibElems = [
-            ['title', 'span', 'reflist_title', ['',''] ],
-            ['journal', 'span', 'reflist_journal', ['',''] ],
-            ['author', 'span', 'reflist_author', ['',''] ],
-            ['date', 'span', 'reflist_year', ['(',')'] ],
-            ['link', 'a', 'reflist_link', ['<','>'] ],
+            ['title',   'span', 'reflist_title',   ['','']   ],
+            ['journal', 'span', 'reflist_journal', ['','']   ],
+            ['author',  'span', 'reflist_author',  ['','']   ],
+            ['date',    'span', 'reflist_year',    ['(',')'] ],
+            ['link',    'a',    'reflist_link',    ['<','>'] ],
 
         ];
 
