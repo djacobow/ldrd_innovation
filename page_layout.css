@@ -1,0 +1,75 @@
+html {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    /* overflow-y: hidden; */
+}
+
+/* Style the tab */
+div.infotab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+div.infotab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+div.infotab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+div.infotab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.contenttab {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+div#title {
+    font-size: 140%;
+}
+
+div#treediv a {
+    white-space: normal !important;
+    height: auto !important;
+    padding: 1px 2px;
+}
+
+div#treediv {
+    /* height: 300px; */
+    /* width: 300px;  */
+    max-width: 250px; 
+    float: left;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+div#infodiv {
+    margin-left: 250px;
+}
+
+div#info_blobs {
+    /* overflow: scroll; */
+    height: 99%;
+}
+
+div#headerdiv {
+    clear: both;
+}
