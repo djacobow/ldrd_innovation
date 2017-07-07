@@ -97,3 +97,36 @@ div.refLink {
     font-size: 80%;
     text-align: right;
 }
+
+
+
+span.reference a:link {
+    text-decoration: none;
+    color: #202020;
+}
+span.reference a:visited{
+    text-decoration: none;
+    color: #202020;
+}
+span.reference a:hover{
+    font-weight: bold;
+}
+div.references_container {
+    font-size: 75%;
+}
+span.reflist_title {
+    font-weight: bold;
+}
+span.reflist_author { }
+span.reflist_year { }
+a.reflist_link:link {
+    text-decoration: none;
+    color: #202020;
+}
+a.reflist_link:visited {
+    text-decoration: none;
+    color: #202020;
+}
+a.reflist_link:hover {
+    font-weight: bold;
+}
