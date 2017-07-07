@@ -2,7 +2,7 @@
 <div class="section">
     <div class="section_heading">A Blob of text</div>
     <p class="paragraph">
-    Different blob of text
+    Different blob of text<span class="reference" ref="kirk"></span>
     </p>
 </div>
 
@@ -18,7 +18,7 @@
 
 
 <div class="section">
-    <div class="section_heading">Table 3: An Embedded Google Sheet</div>
+    <div class="section_heading">Table 3: An Embedded Google Sheet<span class="reference" ref="spock"></span></div>
     <iframe class="basic_sheet" src="https://docs.google.com/spreadsheets/d/1AveqwXLTN2KMqBg2i6jZhvuV6C1brV5qJTLj2O5ojNo/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
 </div>
 
@@ -36,6 +36,10 @@
     <div class="section_heading">Figure 3: A Line Chart</div>
     <div class="basic_chart" id="figure3"></div>
 </div>
+
+
+<div class="references_container" id="refs_container"></div>
+    
 <!-- end html elements - script below here -->
 
 <script type="text/javascript">
@@ -82,4 +86,6 @@ makeChartFromCSV('pie',document.getElementById('figure2'),'tabcontents/rpv_val_g
 makeChartFromCSV('line',document.getElementById('figure3'),'tabcontents/rpv_val_g1.csv',
     { title: 'Now a line chart' });
 
+
+finalizeReferences();
 </script>

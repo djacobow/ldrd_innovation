@@ -187,4 +187,98 @@ var makeTableFromArry = function(data, classes = default_table_classes,
     return telem;
 };
 
+var finalizeReferences = function(refs) {
+    if ((refs === null) || (refs === undefined))  refs = references;
+
+    var mentions = document.getElementsByClassName('reference');
+    var uses = {};
+
+    for (var j=0; j<mentions.length; j++) {
+        var refkey = mentions[j].getAttribute('ref');
+        if (refkey && refkey.length) {
+            console.log('refkey: ' + refkey);
+            ref_dst_anchor = '#ref_dst_' + refkey;
+            ref_src_anchor = '#ref_src_' + j.toString();
+            if (refs.hasOwnProperty(refkey)) {
+                var ref = refs[refkey];
+                console.log(ref);
+                if (!uses.hasOwnProperty(refkey)) uses[refkey] = [];
+                uses[refkey].push(j);
+
+                var a = document.createElement('a');
+                var b = document.createElement('sup');
+                b.innerText = (j+1).toString();
+                a.href = ref_dst_anchor;
+                a.appendChild(b);
+                mentions[j].appendChild(a);
+                mentions[j].id = ref_src_anchor;
+            }
+        }
+    }
+
+    var refshome = document.getElementById('refs_container');
+    var x0 = document.createElement('hr');
+    refshome.appendChild(x0);
+    var x1 = document.createElement('div');
+    x1.innerText = 'References';
+    refshome.appendChild(x1);
+    var t0 = document.createElement('table');
+    var use_keys = Object.keys(uses);
+    for (j=0; j<use_keys.length; j++) {
+        var use_key = use_keys[j];
+        // var ref = refs[use_key];
+        var tr0 = document.createElement('tr');
+        tr0.id = 'ref_dst_' + use_key;
+        var td0 = document.createElement('td');
+        var td1 = document.createElement('td');
+        for (var i=0;i<uses[use_key].length;i++) {
+            idx = uses[use_key][i];
+            var a1 = document.createElement('a');
+            a1.innerText = (idx + 1).toString();
+            a1.href = '#ref_src_' + idx.toString();
+            td0.appendChild(a1);
+            if (i != (uses[use_key].length-1)) {
+                var s1 = document.createElement('span');
+                s1.innerText = ', ';
+                td0.appendChild(s1);
+            }
+        }
+        // td0.innerText = uses[use_key].map(function(x) { return x+1; }).join(', ');
+        tr0.appendChild(td0);
+        var s0 = document.createElement('span');
+
+        var r = refs[use_key];
+        if (r.hasOwnProperty('title')) {
+            var r0 = document.createElement('span');
+            r0.className = 'reflist_title';
+            r0.innerText = r.title;
+            s0.appendChild(r0);
+        }
+        if (r.hasOwnProperty('author')) {
+            var r1 = document.createElement('span');
+            r1.className = 'reflist_author';
+            r1.innerText = ' ' + r.author;
+            s0.appendChild(r1);
+        }
+        if (r.hasOwnProperty('year')) {
+            var r2 = document.createElement('span');
+            r2.className = 'reflist_year';
+            r2.innerText = ' (' + r.year+ ')';
+            s0.appendChild(r2);
+        }
+        if (r.hasOwnProperty('link')) {
+            var r3 = document.createElement('a');
+            r3.className = 'reflist_link';
+            r3.href = r.link;
+            r3.innerText = ' <' + r.link + '>';
+            s0.appendChild(r3);
+        }
+        td1.appendChild(s0);
+
+        tr0.appendChild(td1);
+        t0.appendChild(tr0);
+    }
+    refshome.appendChild(t0);
+    
+};
 
