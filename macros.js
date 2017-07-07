@@ -56,13 +56,19 @@ var csvToArry = function(dstring) {
 };
 
 
-var makeTableFromCSV = function(target, url, classes = default_table_classes) {
+var makeTableFromCSV = function(target, url, title, classes = default_table_classes) {
     console.log('makeTableFromCSV');
     var xhr = new XMLHttpRequest();
     xhr.open('GET',url);
     xhr.onload = function() {
         // console.log(xhr);
         if ((xhr.status === 200) || (xhr.status === 0)){
+            if (title) {
+                var t = document.createElement('div');
+                t.innerText = title;
+                t.className = 'table_heading';
+                target.appendChild(t);
+            }
             var ary = csvToArry(xhr.responseText);
             var reflink = { text: url, href: url };
             var table = makeTableFromArry(ary, classes,reflink);
@@ -187,10 +193,12 @@ var makeTableFromArry = function(data, classes = default_table_classes,
     return telem;
 };
 
-var finalizeReferences = function(refs) {
+var finalizeReferences = function(target, refs) {
     if ((refs === null) || (refs === undefined))  refs = references;
 
-    var mentions = document.getElementsByClassName('reference');
+    var mentions = target.getElementsByClassName('reference');
+    console.log('MENTIONS');
+    console.log(mentions);
     var uses = {};
 
     for (var j=0; j<mentions.length; j++) {
@@ -216,7 +224,11 @@ var finalizeReferences = function(refs) {
         }
     }
 
-    var refshome = document.getElementById('refs_container');
+    // var refshome = target.getElementById('refs_container');
+    var refshomes = target.getElementsByClassName('references_container');
+    if (!refshomes.length) return;
+    var refshome = refshomes[0];
+
     var x0 = document.createElement('hr');
     refshome.appendChild(x0);
     var x1 = document.createElement('div');

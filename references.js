@@ -10,8 +10,8 @@ var references = {
         'year': '2016',
         'link': 'https://en.wikipedia.org/wiki/Spock',
     },
-    'uhuru': {
-        'author': 'Lt. Cmdr Nyota Uhuru',
+    'uhura': {
+        'author': 'Lt. Cmdr Nyota Uhura',
         'year': '2017',
         'link': 'https://en.wikipedia.org/wiki/Uhura',
     },

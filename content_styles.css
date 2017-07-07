@@ -14,6 +14,10 @@ div.section_subheading {
 
 }
 
+div.table_heading {
+    font-weight: bold;
+}
+
 div.section_copyright {
     font-size: 80%;
     text-align: right;
@@ -39,6 +43,11 @@ div.basic_chart {
     max-width: 800px;
     height: 400px;
 }
+
+img.image {
+    width: 80%;
+}
+
 
 /* Everything here is standard formatting for tables */
 
