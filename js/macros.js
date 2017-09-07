@@ -55,9 +55,49 @@ var csvToArry = function(dstring) {
     return oa;
 };
 
+var placeImage = function(args, cb = null) {
+    var target = args.target;
+    var url = args.source;
+    var title = args.title || null;
+    var refs = args.references || [];
+    if (!Array.isArray(refs)) refs = [];
 
-var makeTableFromCSV = function(target, url, title, classes = default_table_classes) {
+    if (title) {
+        var tdiv = document.createElement('div');
+        tdiv.innerText = title;
+        tdiv.className = 'table_heading';
+        for (var i=0;i<refs.length;i++) {
+            console.log('ref: ' + refs[i]);
+            var x = document.createElement('span');
+            x.className = "reference";
+            x.setAttribute('ref',refs[i]);
+            tdiv.appendChild(x);
+            if (i < refs.length-1) {
+                var y = document.createElement('sup');
+                y.innerText = ',';
+                tdiv.appendChild(y);
+            }
+        }
+        target.appendChild(tdiv);
+    } 
+    var img  = document.createElement('img');
+    img.className = 'image';
+    img.src = url;
+    target.appendChild(img);
+    if (cb) return cb(null);
+};
+
+var makeTableFromCSV = function(args, cb = null) {
+    var target = args.target;
+    var url = args.source;
+    var title = args.title || null;
+    var refs = args.references || [];
+    var classes = args.classes || default_table_classes;
+
+    // target, url, title, refs = null, classes = default_table_classes) {
     console.log('makeTableFromCSV');
+    if (!Array.isArray(refs)) refs = [];
+    console.log(JSON.stringify(refs,null,2));
     var xhr = new XMLHttpRequest();
     xhr.open('GET',url);
     xhr.onload = function() {
@@ -67,6 +107,19 @@ var makeTableFromCSV = function(target, url, title, classes = default_table_clas
                 var t = document.createElement('div');
                 t.innerText = title;
                 t.className = 'table_heading';
+                for (var i=0;i<refs.length;i++) {
+                    console.log('ref: ' + refs[i]);
+                    var x = document.createElement('span');
+                    x.className = "reference";
+                    x.setAttribute('ref',refs[i]);
+                    t.appendChild(x);
+                    console.log(x);
+                    if (i < refs.length-1) {
+                        var y = document.createElement('sup');
+                        y.innerText = ',';
+                        t.appendChild(y);
+                    }
+                }
                 target.appendChild(t);
             }
             var ary = csvToArry(xhr.responseText);
@@ -76,11 +129,17 @@ var makeTableFromCSV = function(target, url, title, classes = default_table_clas
         } else {
             target.innerText = 'Failed to load supporting data';
         }
+        if (cb) return cb();
     };
     xhr.send();
 };
 
-var makeChartFromCSV = function(type, target, url, titles) {
+var makeChartFromCSV = function(args, cb = null) {
+    var type = args.type;
+    var target = args.target;
+    var url = args.source;
+    var titles = args.titles;
+
     console.log('makeBarChartFromCSV');
     var xhr = new XMLHttpRequest();
     xhr.open('GET',url);
@@ -93,6 +152,7 @@ var makeChartFromCSV = function(type, target, url, titles) {
         } else {
             target.innerText = 'Failed to load supporting data';
         }
+        if (cb) return cb(null);
     };
     xhr.send();
 };
@@ -194,9 +254,11 @@ var makeTableFromArry = function(data, classes = default_table_classes,
 };
 
 var finalizeReferences = function(target, refs) {
+    console.log('finalizeReferences');
     if ((refs === null) || (refs === undefined))  refs = references;
 
     var mentions = target.getElementsByClassName('reference');
+    console.log(JSON.stringify(mentions,null,2));
     if (!mentions.length) return;
     // console.log('MENTIONS');
     // console.log(mentions);
@@ -204,6 +266,8 @@ var finalizeReferences = function(target, refs) {
 
     for (var j=0; j<mentions.length; j++) {
         var refkey = mentions[j].getAttribute('ref');
+        var suppress_anchor = mentions[j].getAttribute('suppress');
+        console.log('refkey: ' + refkey);
         if (refkey && refkey.length) {
             // console.log('refkey: ' + refkey);
             ref_dst_anchor = '#ref_dst_' + refkey;
@@ -214,14 +278,16 @@ var finalizeReferences = function(target, refs) {
                 if (!uses.hasOwnProperty(refkey)) uses[refkey] = [];
                 uses[refkey].push(j);
 
-                var a = document.createElement('a');
-                a.className = 'ref_marker';
-                var b = document.createElement('sup');
-                b.innerText = (j+1).toString();
-                a.href = ref_dst_anchor;
-                a.appendChild(b);
-                mentions[j].appendChild(a);
-                mentions[j].id = ref_src_anchor;
+                if (!suppress_anchor) {
+                    var a = document.createElement('a');
+                    a.className = 'ref_marker';
+                    var b = document.createElement('sup');
+                    b.innerText = (j+1).toString();
+                    a.href = ref_dst_anchor;
+                    a.appendChild(b);
+                    mentions[j].appendChild(a);
+                    mentions[j].id = ref_src_anchor;
+                }
             }
         }
     }
@@ -303,5 +369,33 @@ var finalizeReferences = function(target, refs) {
     }
     refshome.appendChild(t0);
     
+};
+
+var applyActions = function(actions, cb = null) {
+    async.each(actions,function(action,ecb) {
+        switch (action.action) {
+            case 'tablecsv':
+                makeTableFromCSV(action,function() {
+                    console.log('calling callback from makeTableFromCSV');
+                    ecb(null);
+                });
+                break;
+            case 'chartcsv':
+                makeChartFromCSV(action,function() {
+                    ecb(null);
+                });
+                break;
+            case 'image':
+                placeImage(action,function() { ecb(null); });
+                break;
+            default:
+                ecb(null);
+        }
+    },
+    function() {
+        console.log('done with each');
+        contentAllDone();
+        if (cb) return cb();
+    });
 };
 

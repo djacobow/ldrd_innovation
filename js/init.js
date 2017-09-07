@@ -116,6 +116,11 @@ function makeid(len) {
 }
 
 
+var current_target = null;
+function contentAllDone() {
+    console.log('contentAllDone()');
+    if (current_target) finalizeReferences(current_target);
+}
 
 var populateTab = function(target, tab_id) {
     if (false) {
@@ -130,6 +135,7 @@ var populateTab = function(target, tab_id) {
         target.removeChild(target.firstChild);
     }
 
+    current_target = target;
     function placeRefs() { finalizeReferences(target); }
 
     var tab = leafdata.info[tab_id];
@@ -140,7 +146,7 @@ var populateTab = function(target, tab_id) {
         placeRefs();
     } else if (tab.hasOwnProperty('htfile')) {
         fetchAndDo(target,tab.htfile,false,function() {
-            placeRefs();
+            // placeRefs();
         });
     } else if (tab.hasOwnProperty('jsfile')) {
         fetchAndDo(target,tab.jsfile,true,function(t,d) {

@@ -45,6 +45,10 @@ div.basic_chart {
     height: 400px;
 }
 
+div.image {
+    width: 80%;
+}
+
 img.image {
     width: 80%;
 }
@@ -155,4 +159,9 @@ a.ref_marker:link, a.ref_marker:visited {
 }
 a.ref_marker:hover {
     color: #808080;
+}
+
+.tbd {
+    color: red;
+    font-weight: bold;
 }
