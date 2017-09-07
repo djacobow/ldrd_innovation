@@ -23,7 +23,6 @@ North American Industry Classification System (NAICS) codes are standard definit
     </p>
     <span class="tbd">Note: are these the right naics codes? Engine+turbine probably is more to do with steam and gas turbines than wind.</span>
     <div id="naics_table"></div>
-    <span class="reference" ref="us_census"></span>
 </div>
 
 <div class="section">
@@ -58,8 +57,11 @@ var actions = [
         action: 'tablecsv',
         target: 'naics_table',
         source: 'tabcontents/wind_blad_descr_naics.csv',
+        references: ['census_naics'],
+        title: 'NAICS Codes for Turbine Manufacturing',
     },
     {
+        title:  'Wind Turbine Manufacturers',
         action: 'tablecsv',
         target: 'firms_table',
         source: 'tabcontents/wind_blad_descr_mfrs.csv',
