@@ -62,29 +62,35 @@ var placeImage = function(args, cb = null) {
     var refs = args.references || [];
     if (!Array.isArray(refs)) refs = [];
 
-    if (title) {
-        var tdiv = document.createElement('div');
-        tdiv.innerText = title;
-        tdiv.className = 'table_heading';
-        for (var i=0;i<refs.length;i++) {
-            console.log('ref: ' + refs[i]);
-            var x = document.createElement('span');
-            x.className = "reference";
-            x.setAttribute('ref',refs[i]);
-            tdiv.appendChild(x);
-            if (i < refs.length-1) {
-                var y = document.createElement('sup');
-                y.innerText = ',';
-                tdiv.appendChild(y);
-            }
-        }
-        target.appendChild(tdiv);
-    } 
+    var tra = makeTitleAndRefAnchors(title, refs, 'image_heading');
+    if (tra) target.appendChild(tra);
     var img  = document.createElement('img');
     img.className = 'image';
     img.src = url;
     target.appendChild(img);
     if (cb) return cb(null);
+};
+
+var makeTitleAndRefAnchors = function(title, refs, tclass = 'table_heading') {
+    var t = null;
+    if (title) {
+        t = document.createElement('div');
+        t.innerText = title;
+        t.className = tclass;
+        for (var i=0;i<refs.length;i++) {
+            console.log('ref: ' + refs[i]);
+            var x = document.createElement('span');
+            x.className = "reference";
+            x.setAttribute('ref',refs[i]);
+            t.appendChild(x);
+            if (i < refs.length-1) {
+                var y = document.createElement('sup');
+                y.innerText = ',';
+                t.appendChild(y);
+            }
+        }
+    }
+    return t;
 };
 
 var makeTableFromCSV = function(args, cb = null) {
@@ -104,25 +110,8 @@ var makeTableFromCSV = function(args, cb = null) {
     xhr.onload = function() {
         // console.log(xhr);
         if ((xhr.status === 200) || (xhr.status === 0)){
-            if (title) {
-                var t = document.createElement('div');
-                t.innerText = title;
-                t.className = 'table_heading';
-                for (var i=0;i<refs.length;i++) {
-                    console.log('ref: ' + refs[i]);
-                    var x = document.createElement('span');
-                    x.className = "reference";
-                    x.setAttribute('ref',refs[i]);
-                    t.appendChild(x);
-                    console.log(x);
-                    if (i < refs.length-1) {
-                        var y = document.createElement('sup');
-                        y.innerText = ',';
-                        t.appendChild(y);
-                    }
-                }
-                target.appendChild(t);
-            }
+            var tra = makeTitleAndRefAnchors(title, refs, 'table_heading');
+            if (tra) target.appendChild(tra);
             var ary = csvToArry(xhr.responseText);
             var reflink = { text: url, href: url };
             var table = makeTableFromArry(ary, classes, reflink, widths);
@@ -139,9 +128,11 @@ var makeChartFromCSV = function(args, cb = null) {
     var type = args.type;
     var target = args.target;
     var url = args.source;
-    var titles = args.titles;
+    var options= args.options;
+    var title = args.title;
+    var refs = args.references || [];
 
-    console.log('makeBarChartFromCSV');
+    console.log('makeChartFromCSV');
     var xhr = new XMLHttpRequest();
     xhr.open('GET',url);
     xhr.onload = function() {
@@ -149,7 +140,9 @@ var makeChartFromCSV = function(args, cb = null) {
         if ((xhr.status === 200) || (xhr.status === 0)){
             var ary = csvToArry(xhr.responseText);
             var reflink = { text: url, href: url };
-            makeChartFromArry(type, target, ary, titles, reflink);
+            makeChartFromArry(type, target, ary, options, reflink);
+            var tra = makeTitleAndRefAnchors(title, refs, 'table_heading');
+            if (tra) target.insertBefore(tra,target.firstChild);
         } else {
             target.innerText = 'Failed to load supporting data';
         }
@@ -160,6 +153,7 @@ var makeChartFromCSV = function(args, cb = null) {
 
 var makeChartFromArry = function(type, target, data, options = null, link = null) {
     console.log('makeBarChartFromArry()');
+    console.log(data);
     var drawChart = function() {
         console.log('drawChart()');
         var cdata = google.visualization.arrayToDataTable(data);
@@ -201,6 +195,7 @@ var makeChartFromArry = function(type, target, data, options = null, link = null
         ld.appendChild(a);
         target.appendChild(ld);
     }
+
 };
 
 
@@ -291,6 +286,11 @@ var finalizeReferences = function(target, refs) {
                     mentions[j].appendChild(a);
                     mentions[j].id = ref_src_anchor;
                 }
+            } else {
+                var e = document.createElement('div');
+                e.className = 'tbd';
+                e.innerText = 'Reference error: "' + refkey + '" not defined';
+                mentions[j].appendChild(e);
             }
         }
     }
@@ -381,7 +381,15 @@ var applyActions = function(actions, cb = null) {
             target = document.getElementById(target);
             action.target = target;
         }
+        if (!target) {
+            if (cb) return cb('err - missing target');
+            return;
+        }
+        if (!target.className || (target.className.length === 0)) {
+            target.className = 'generic_object_container';
+        }
 
+        console.log(action);
         switch (action.action) {
             case 'tablecsv':
                 makeTableFromCSV(action,function() {
