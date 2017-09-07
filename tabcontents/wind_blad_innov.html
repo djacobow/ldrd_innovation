@@ -1,0 +1,93 @@
+
+<div class="section">
+    <div class="section_heading">Dominant Design Overview</div>
+    <p class="paragraph">
+Over the years, a dominant design has emerged, which consists of 3 blades, mostly up-wind rotor, pitch-control for braking and an integrated gear box.
+    </p>
+    <p class="paragraph">
+    Innovations in rotor design: Two of the major innovations in rotor design were determined by government testing: (1) increasing rotor radius/blade-swept area while maintaining reliability, and (2) blade (airfoil) design and composition.<span class="reference" ref="cec_wind"><span>
+    </p>
+
+    <div class="section_subheading">Alternative Designs<span class="reference" ref="green_rhino"></span></div>
+    <p class="paragraph">
+    <div class="image">
+        <div id="rotor_img"></div>
+        <div id="orient_img"></div>
+        <div id="ctrl_img"></div>
+    </div>
+
+    </p>
+
+    <div id="turb_learning_table"></div>
+
+    <div id="blad_learning_table"></div>
+
+    <div id="irena_chart"></div>
+
+    <div id="nrel_chart"></div>
+
+</div>
+
+<span class="reference" ref="wikipedia_design" suppress="true"></span>
+
+<div class="references_container" id="refs_container"></div>
+
+<!-- end html elements - script below here -->
+
+<script type="text/javascript">
+
+var actions = [
+   {
+       action: 'tablecsv',
+       target: document.getElementById('turb_learning_table'),
+       source:'tabcontents/wind_blad_innov_turb_lc.csv',
+       title: 'Turbine Learning Curve',
+       references:["awea_db","irena_2012"],
+   },
+   {
+       action: 'tablecsv',
+       target: document.getElementById('blad_learning_table'),
+       source: 'tabcontents/wind_blad_innov_blad_lc.csv',
+       title: 'Blade Learning Curve',
+       references: ["awea_2016b"]
+   },
+   {
+       action: 'image',
+       target: document.getElementById('rotor_img'),
+       source: 'tabcontents/wind_blad_innov_rotor_tech.png',
+       title: 'Rotor Technology',
+       references: ['green_rhino'],
+   },
+   {
+       action: 'image',
+       target: document.getElementById('orient_img'),
+       source: 'tabcontents/wind_blad_innov_rotor_orient.png',
+       title: 'Rotor Orientation',
+       references: ['green_rhino'],
+   },
+   {
+       action: 'image',
+       target: document.getElementById('ctrl_img'),
+       source: 'tabcontents/wind_blad_innov_ctrl.png',
+       title: 'Rotor Controls',
+       references: ['green_rhino'],
+   },
+   {
+       action: 'image',
+       target: document.getElementById('irena_chart'),
+       source: "tabcontents/wind_blad_innov_irena_2012.png",
+       title: 'Reported Wind Turbine Transaction Prices',
+       references: ['irena_2012'],
+   },
+   {
+       action: 'image',
+       target: document.getElementById('irena_chart'),
+       source: "tabcontents/wind_blad_innov_nrel_2015.png",
+       title: 'Capital Expenditures for the land-based reference wind plant',
+       references: ['nrel_2015'],
+   },
+];
+
+applyActions(actions);
+
+</script>
