@@ -36,8 +36,27 @@
 
 <script type="text/javascript">
 
-makeTableFromCSV(document.getElementById('quant_table'),'tabcontents/dummy.csv','Quantities');
-makeTableFromCSV(document.getElementById('cost_table'),'tabcontents/dummy.csv','Costs');
-makeTableFromCSV(document.getElementById('perf_table'),'tabcontents/dummy.csv','Performance');
+var actions = [
+    {
+        action: 'tablecsv',
+        target: document.getElementById('quant_table'),
+        source: 'tabcontents/dummy.csv',
+        title: 'Quantities',
+    },
+    {
+        action: 'tablecsv',
+        target: document.getElementById('cost_table'),
+        source: 'tabcontents/dummy.csv',
+        title: 'Costs',
+    },
+    {
+        action: 'tablecsv',
+        target: document.getElementById('perf_table'),
+        source: 'tabcontents/dummy.csv',
+        title: 'Performance',
+    },
+];
+
+applyActions(actions);
 
 </script>

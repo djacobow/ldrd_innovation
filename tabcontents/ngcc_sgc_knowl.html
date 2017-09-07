@@ -30,6 +30,14 @@
 
 <script type="text/javascript">
 
-makeTableFromCSV(document.getElementById('patent_table'),'tabcontents/dummy.csv');
+var actions = [
+    {
+        action: 'tablecsv',
+        target: document.getElementById('patent_table'),
+        source: 'tabcontents/dummy.csv',
+    },
+];
+
+applyActions(actions);
 
 </script>
