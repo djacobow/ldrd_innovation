@@ -93,6 +93,7 @@ var makeTableFromCSV = function(args, cb = null) {
     var title = args.title || null;
     var refs = args.references || [];
     var classes = args.classes || default_table_classes;
+    var widths = args.widths || null;
 
     // target, url, title, refs = null, classes = default_table_classes) {
     console.log('makeTableFromCSV');
@@ -124,7 +125,7 @@ var makeTableFromCSV = function(args, cb = null) {
             }
             var ary = csvToArry(xhr.responseText);
             var reflink = { text: url, href: url };
-            var table = makeTableFromArry(ary, classes,reflink);
+            var table = makeTableFromArry(ary, classes, reflink, widths);
             target.appendChild(table);
         } else {
             target.innerText = 'Failed to load supporting data';
@@ -206,6 +207,8 @@ var makeChartFromArry = function(type, target, data, options = null, link = null
 var makeTableFromArry = function(data, classes = default_table_classes,
                                  link = null, widths = null) {
     var telem = document.createElement('table');
+    // console.log('widths');
+    // console.log(JSON.stringify(widths,null,2));
     telem.className = classes.table;
     var i,j;
     var max_cols = 0;
@@ -373,6 +376,12 @@ var finalizeReferences = function(target, refs) {
 
 var applyActions = function(actions, cb = null) {
     async.each(actions,function(action,ecb) {
+        var target = action.target || null;
+        if (typeof target === 'string') {
+            target = document.getElementById(target);
+            action.target = target;
+        }
+
         switch (action.action) {
             case 'tablecsv':
                 makeTableFromCSV(action,function() {

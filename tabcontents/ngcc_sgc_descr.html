@@ -55,23 +55,23 @@
 var actions = [
     {
         action: 'tablecsv',
-        target: document.getElementById('naics_table'),
+        target: 'naics_table',
         source: 'tabcontents/ngcc_sgc_descr_naics.csv',
     },
     {
         action: 'tablecsv',
-        target: document.getElementById('firms_table'),
+        target: 'firms_table',
         source: 'tabcontents/ngcc_sgc_descr_firms.csv',
     },
     {
         action: 'chartcsv',
         type: 'pie',
-        target: document.getElementById('chart_thingy'),
+        target: 'chart_thingy',
         source: 'tabcontents/dummy.csv',
     },
     {
         action: 'image',
-        target: document.getElementById('cleese_holder'),
+        target: 'cleese_holder',
         source: 'tabcontents/cleese.jpg',
         title: 'This is John Cleese',
     },

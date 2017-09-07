@@ -146,7 +146,6 @@ var populateTab = function(target, tab_id) {
         placeRefs();
     } else if (tab.hasOwnProperty('htfile')) {
         fetchAndDo(target,tab.htfile,false,function() {
-            // placeRefs();
         });
     } else if (tab.hasOwnProperty('jsfile')) {
         fetchAndDo(target,tab.jsfile,true,function(t,d) {
