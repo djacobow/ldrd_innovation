@@ -1,7 +1,44 @@
 var indata = [
+    {
+        name: 'Home',
+        id: 'top',
+        info: {
+            overview: {
+                name: 'This is the overall overview',
+                htfile: 'tabcontents/top_overview.html',
+            }
+        }
+    },
+
+    {
+        name: 'Generation',
+        id: 'gen',
+        parent: 'top',
+        info: {
+            overview: {
+                name: 'This is the overall overview',
+                htfile: 'tabcontents/gen_overview.html',
+            }
+        }
+    },
+
+   
+    {
+        name: 'Natural Gas',
+        id: 'ng',
+        parent: 'gen',
+        info: {
+            overview: {
+                name: 'This is the overall overview',
+                htfile: 'tabcontents/gas_overview.html',
+            }
+        }
+    },
+
 
     {
         name: 'Natural Gas Power Plants',
+        parent: 'ng',
         id: 'ngcc',
         info: {
             overview: {
@@ -134,6 +171,7 @@ var indata = [
 
     {
         name: 'Natural Gas Fuel',
+        parent: 'ng',
         id: 'ngf',
         info: {
             overview: {
@@ -246,6 +284,7 @@ var indata = [
 
     {
         name: 'Utility-Scale Photovoltaics',
+        parent: 'gen',
         id: 'upv',
         info: {
             overview: {
@@ -449,6 +488,7 @@ var indata = [
 
     {
         name: 'Onshore Wind',
+        parent: 'gen',
         id: 'wind',
         info: {
             overview: {
@@ -626,6 +666,7 @@ var indata = [
 
     {
         name: 'Transmission & Distribution (USA)',
+        parent: 'top',
         id: 'td',
         info: {
             overview: {

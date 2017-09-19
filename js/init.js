@@ -245,7 +245,7 @@ var setupTree = function() {
  });
 
  $('#treediv').on('loaded.jstree', function(e, data) {
-     $('#treediv').jstree().select_node('ngcc');
+     $('#treediv').jstree().select_node('top');
  });
 
 };

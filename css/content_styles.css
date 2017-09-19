@@ -18,13 +18,13 @@ div.section_subheading {
 div.table_heading {
     width: 80%;
     font-weight: bold;
-    text-align: right;
+    text-align: left;
 }
 
 div.image_heading {
     width: 80%;
     font-weight: bold;
-    text-align: right;
+    text-align: left;
 }
 
 div.section_copyright {
