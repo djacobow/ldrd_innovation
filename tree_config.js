@@ -409,7 +409,7 @@ var indata = [
         },
     },
     {
-        name: 'Project Developement',
+        name: 'Project Development',
         parent: 'upv',
         id: 'upv_dev',
         info: {
@@ -497,10 +497,23 @@ var indata = [
             }
         },
     },
+   
+    {
+        name: 'Turbine Manufacture',
+        parent: 'wind',
+        id: 'wind_turb',
+        info: {
+            overview: {
+                name: 'Overview',
+                htfile: 'tabcontents/wind_turb_overview.html',
+            }
+        },
+    },
+
     {
         name: 'Rotors and Blades',
-        parent: 'wind',
-        id: 'wind_blad',
+        parent: 'wind_turb',
+        id: 'wind_turb_blad',
         info: {
             description: {
                 name: 'Descriptive Information',
@@ -522,8 +535,8 @@ var indata = [
     },
     {
         name: 'Nacelle',
-        parent: 'wind',
-        id: 'wind_nac',
+        parent: 'wind_turb',
+        id: 'wind_turb_nac',
         info: {
             description: {
                 name: 'Descriptive Information',
@@ -545,8 +558,8 @@ var indata = [
     },
     {
         name: 'Tower',
-        parent: 'wind',
-        id: 'wind_twr',
+        parent: 'wind_turb',
+        id: 'wind_turb_twr',
         info: {
             description: {
                 name: 'Descriptive Information',
