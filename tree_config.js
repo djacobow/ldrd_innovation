@@ -503,10 +503,22 @@ var indata = [
         parent: 'wind',
         id: 'wind_turb',
         info: {
-            overview: {
-                name: 'Overview',
-                htfile: 'tabcontents/wind_turb_overview.html',
-            }
+            description: {
+                name: 'Descriptive Information',
+                htfile: 'tabcontents/wind_turb_descr.html',
+            },
+            innov: {
+                name: 'Innovative Outcomes',
+                htfile: 'tabcontents/wind_turb_innov.html',
+            },
+            strategic: {
+                name: 'Strategic Conditions',
+                htfile: 'tabcontents/wind_turb_strat.html',
+            },
+            knowledge: {
+                name: 'Knowledge Conditions',
+                htfile: 'tabcontents/wind_turb_knowl.html',
+            },
         },
     },
 
