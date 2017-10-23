@@ -678,29 +678,29 @@ var indata = [
 
 
     {
-        name: 'Transmission & Distribution (USA)',
+        name: 'Power Markets (USA)',
         parent: 'top',
-        id: 'td',
+        id: 'pm',
         info: {
             overview: {
                 name: 'Overview',
-                htfile: 'tabcontents/td_overview.html',
+                htfile: 'tabcontents/pm_overview.html',
             },
             description: {
                 name: 'Descriptive Information',
-                htfile: 'tabcontents/td_descr.html',
+                htfile: 'tabcontents/pm_descr.html',
             },
             innov: {
                 name: 'Innovative Outcomes',
-                htfile: 'tabcontents/td_innov.html',
+                htfile: 'tabcontents/pm_innov.html',
             },
             strategic: {
                 name: 'Strategic Conditions',
-                htfile: 'tabcontents/td_strat.html',
+                htfile: 'tabcontents/pm_strat.html',
             },
             knowledge: {
                 name: 'Knowledge Conditions',
-                htfile: 'tabcontents/td_knowl.html',
+                htfile: 'tabcontents/pm_knowl.html',
             },
         },
     },
@@ -900,13 +900,13 @@ var old_tree = [
    id: 'upv_ipp',
    parent: 'upv',
  },
- { name: 'Transmission & Distribution',
-   id: 'upv_td',
+ { name: 'Power Markets',
+   id: 'upv_pm',
    parent: 'upv',
  },
  { name: 'Utility / Transmission Owner',
-   id: 'upv_td_util',
-   parent: 'upv_td',
+   id: 'upv_pm_util',
+   parent: 'upv_pm',
  },
 
 
@@ -966,13 +966,13 @@ var old_tree = [
    id: 'wp_generator_ipp',
    parent: 'wp_generator',
  },
- { name: 'Transmission and Distribution',
-   id: 'wp_td',
+ { name: 'Power Markets',
+   id: 'wp_pm',
    parent: 'wp',
  },
  { name: 'Utility',
-   id: 'wp_td_utility',
-   parent: 'wp_td',
+   id: 'wp_pm_utility',
+   parent: 'wp_pm',
  },
 
  // Everything Coal
