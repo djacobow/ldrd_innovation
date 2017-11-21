@@ -698,21 +698,87 @@ var indata = [
                 name: 'Overview',
                 htfile: 'tabcontents/pm_overview.html',
             },
+        },
+    },
+
+    {
+        name: 'Wholesale Energy, Supply',
+        parent: 'pm',
+        id: 'pm_supply',
+        info: {
+            overview: {
+                name: 'Overview',
+                htfile: 'tabcontents/pm_supply_overview.html',
+            },
             description: {
                 name: 'Descriptive Information',
-                htfile: 'tabcontents/pm_descr.html',
+                htfile: 'tabcontents/pm_supply_descr.html',
             },
             innov: {
                 name: 'Innovative Outcomes',
-                htfile: 'tabcontents/pm_innov.html',
+                htfile: 'tabcontents/pm_supply_innov.html',
             },
             strategic: {
                 name: 'Strategic Conditions',
-                htfile: 'tabcontents/pm_strat.html',
+                htfile: 'tabcontents/pm_supply_strat.html',
             },
             knowledge: {
                 name: 'Knowledge Conditions',
-                htfile: 'tabcontents/pm_knowl.html',
+                htfile: 'tabcontents/pm_supply_knowl.html',
+            },
+        },
+    },
+    {
+        name: 'Transmission & Market Making',
+        parent: 'pm',
+        id: 'pm_td',
+        info: {
+            overview: {
+                name: 'Overview',
+                htfile: 'tabcontents/pm_td_overview.html',
+            },
+            description: {
+                name: 'Descriptive Information',
+                htfile: 'tabcontents/pm_td_descr.html',
+            },
+            innov: {
+                name: 'Innovative Outcomes',
+                htfile: 'tabcontents/pm_td_innov.html',
+            },
+            strategic: {
+                name: 'Strategic Conditions',
+                htfile: 'tabcontents/pm_td_strat.html',
+            },
+            knowledge: {
+                name: 'Knowledge Conditions',
+                htfile: 'tabcontents/pm_td_knowl.html',
+            },
+        },
+    },
+    {
+        name: 'Load Aggregation',
+        parent: 'pm',
+        id: 'pm_ld',
+        info: {
+            overview: {
+                name: 'Overview',
+                htfile: 'tabcontents/pm_ld_overview.html',
+            },
+            description: {
+                name: 'Descriptive Information',
+                htfile: 'tabcontents/pm_ld_descr.html',
+            },
+            innov: {
+                name: 'Innovative Outcomes',
+                htfile: 'tabcontents/pm_ld_innov.html',
+            },
+            strategic: {
+                name: 'Strategic Conditions',
+                htfile: 'tabcontents/pm_ld_strat.html',
+            },
+            knowledge: {
+                name: 'Knowledge Conditions',
+                htfile: 'tabcontents/pm_ld_knowl.html',
             },
         },
     },
