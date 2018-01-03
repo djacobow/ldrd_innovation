@@ -294,6 +294,29 @@ var indata = [
         },
     },
     {
+        name: 'PV Modules Manufacturing',
+        parent: 'upv',
+        id: 'upv_modul',
+        info: {
+            description: {
+                name: 'Descriptive Information',
+                htfile: 'tabcontents/upv_modul_descr.html',
+            },
+            innov: {
+                name: 'Innovative Outcomes',
+                htfile: 'tabcontents/upv_modul_innov.html',
+            },
+            strategic: {
+                name: 'Strategic Conditions',
+                htfile: 'tabcontents/upv_modul_strat.html',
+            },
+            knowledge: {
+                name: 'Knowledge Conditions',
+                htfile: 'tabcontents/upv_modul_knowl.html',
+            },
+        },
+    },
+    {
         name: 'Polysilicon',
         parent: 'upv_modul',
         id: 'upv_modul_poly',
@@ -313,29 +336,6 @@ var indata = [
             knowledge: {
                 name: 'Knowledge Conditions',
                 htfile: 'tabcontents/upv_modul_poly_knowl.html',
-            },
-        },
-    },
-    {
-        name: 'Modules',
-        parent: 'upv',
-        id: 'upv_modul',
-        info: {
-            description: {
-                name: 'Descriptive Information',
-                htfile: 'tabcontents/upv_modul_descr.html',
-            },
-            innov: {
-                name: 'Innovative Outcomes',
-                htfile: 'tabcontents/upv_modul_innov.html',
-            },
-            strategic: {
-                name: 'Strategic Conditions',
-                htfile: 'tabcontents/upv_modul_strat.html',
-            },
-            knowledge: {
-                name: 'Knowledge Conditions',
-                htfile: 'tabcontents/upv_modul_knowl.html',
             },
         },
     },
@@ -386,29 +386,6 @@ var indata = [
         },
     },
     {
-        name: 'Inverters',
-        parent: 'upv',
-        id: 'upv_inv',
-        info: {
-            description: {
-                name: 'Descriptive Information',
-                htfile: 'tabcontents/upv_inv_descr.html',
-            },
-            innov: {
-                name: 'Innovative Outcomes',
-                htfile: 'tabcontents/upv_inv_innov.html',
-            },
-            strategic: {
-                name: 'Strategic Conditions',
-                htfile: 'tabcontents/upv_inv_strat.html',
-            },
-            knowledge: {
-                name: 'Knowledge Conditions',
-                htfile: 'tabcontents/upv_inv_knowl.html',
-            },
-        },
-    },
-    {
         name: 'Balance of System',
         parent: 'upv',
         id: 'upv_bos',
@@ -431,6 +408,31 @@ var indata = [
             },
         },
     },
+/*
+    {
+        name: 'Inverters',
+        parent: 'upv_bos',
+        id: 'upv_bos_inv',
+        info: {
+            description: {
+                name: 'Descriptive Information',
+                htfile: 'tabcontents/upv_bos_inv_descr.html',
+            },
+            innov: {
+                name: 'Innovative Outcomes',
+                htfile: 'tabcontents/upv_bos_inv_innov.html',
+            },
+            strategic: {
+                name: 'Strategic Conditions',
+                htfile: 'tabcontents/upv_bos_inv_strat.html',
+            },
+            knowledge: {
+                name: 'Knowledge Conditions',
+                htfile: 'tabcontents/upv_bos_inv_knowl.html',
+            },
+        },
+    },
+*/
     {
         name: 'Project Development',
         parent: 'upv',
@@ -522,7 +524,7 @@ var indata = [
     },
    
     {
-        name: 'Turbine Manufacture',
+        name: 'Turbine Manufacturing',
         parent: 'wind',
         id: 'wind_turb',
         info: {
@@ -638,53 +640,30 @@ var indata = [
         },
     },
     {
-        name: 'Delivery',
-        parent: 'wind',
-        id: 'wind_deliv',
+        name: 'EPC',
+        parent: 'wind_prj',
+        id: 'wind_prj_epc',
         info: {
             description: {
                 name: 'Descriptive Information',
-                htfile: 'tabcontents/wind_deliv_descr.html',
+                htfile: 'tabcontents/wind_prj_epc_descr.html',
             },
             innov: {
                 name: 'Innovative Outcomes',
-                htfile: 'tabcontents/wind_deliv_innov.html',
+                htfile: 'tabcontents/wind_prj_epc_innov.html',
             },
             strategic: {
                 name: 'Strategic Conditions',
-                htfile: 'tabcontents/wind_deliv_strat.html',
+                htfile: 'tabcontents/wind_prj_epc_strat.html',
             },
             knowledge: {
                 name: 'Knowledge Conditions',
-                htfile: 'tabcontents/wind_deliv_knowl.html',
+                htfile: 'tabcontents/wind_prj_epc_knowl.html',
             },
         },
     },
     {
-        name: 'Construction',
-        parent: 'wind',
-        id: 'wind_cons',
-        info: {
-            description: {
-                name: 'Descriptive Information',
-                htfile: 'tabcontents/wind_cons_descr.html',
-            },
-            innov: {
-                name: 'Innovative Outcomes',
-                htfile: 'tabcontents/wind_cons_innov.html',
-            },
-            strategic: {
-                name: 'Strategic Conditions',
-                htfile: 'tabcontents/wind_cons_strat.html',
-            },
-            knowledge: {
-                name: 'Knowledge Conditions',
-                htfile: 'tabcontents/wind_cons_knowl.html',
-            },
-        },
-    },
-    {
-        name: 'Operations',
+        name: 'Operation and Maintenance',
         parent: 'wind',
         id: 'wind_ops',
         info: {
