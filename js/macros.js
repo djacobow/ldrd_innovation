@@ -245,6 +245,7 @@ var makeTableFromArry = function(data, classes = default_table_classes,
                     var ana = document.createElement('a');
                     ana.innerText = embedded_url[1];
                     ana.href = embedded_url[2];
+                    ana.target = '_blank';
                     td.appendChild(ana);
                 } else {
                     td.innerText = cellStr;
