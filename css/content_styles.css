@@ -61,6 +61,10 @@ img.image {
     width: 80%;
 }
 
+div.imgCaption {
+    font-size: 80%;
+}
+
 
 /* Everything here is standard formatting for tables */
 
@@ -69,7 +73,7 @@ table.csvTable {
     max-width: 800px;
     border: 0px;
     border-collapse: collapse;
-    font-family: courier;
+    /* font-family: courier; */
 }
 
 tr.csvTop {
@@ -124,6 +128,11 @@ td.csvRefLink a:link, td.csvRefLink a:visited {
 }
 td.csvRefLink a:hover {
     color: #808080;
+}
+
+td.csvCaption{
+    font-size: 80%;
+    text-align: right;
 }
 
 td.refLink {

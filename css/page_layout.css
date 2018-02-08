@@ -24,12 +24,23 @@ div#infodiv {
     margin-left: 285px;
 }
 
+.jstree-anchor {
+    /*enable wrapping*/
+    white-space : normal !important;
+    /*ensure lower nodes move down*/
+    height : auto !important;
+    /*offset icon width*/
+    padding-right : 10px;
+}
+
 div#treediv a {
     font-size: 80%;
+    /*
     white-space: normal !important;
     height: auto !important;
     padding: 2px 2px;
-    width: 250px;
+    */
+    max-width: 250px;
 }
 
 div#treediv {

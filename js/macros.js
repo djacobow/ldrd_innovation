@@ -12,6 +12,7 @@ var default_table_classes = {
     right: 'csvRight',
     bottom: 'csvBottom',
     reflink: 'csvRefLink',
+    caption: 'csvCaption',
 };
 
 // cribbed from: http://stackoverflow.com/questions/8493195/how-can-i-parse-a-csv-string-with-javascript-which-contains-comma-in-data
@@ -44,9 +45,11 @@ var csvToArry = function(dstring) {
         var line = lines[j];
         if (line.length) {
             var row = csvLineToArray(line);
-            for (var k=0;k<row.length;k++) {
-                if (row[k].match(/^\d+\.?\d*$/)) {
-                    row[k] = parseFloat(row[k]);
+            if (row) {
+                for (var k=0;k<row.length;k++) {
+                    if (row[k].match(/^\d+\.?\d*$/)) {
+                        row[k] = parseFloat(row[k]);
+                    }
                 }
             }
             oa.push(row);
@@ -68,6 +71,15 @@ var placeImage = function(args, cb = null) {
     img.className = 'image';
     img.src = url;
     target.appendChild(img);
+
+    var caption = args.caption || null;
+    if (caption) {
+        var d = document.createElement('div');
+        d.innerText = caption;
+        d.className = 'imgCaption';
+        target.appendChild(d);
+    }
+
     if (cb) return cb(null);
 };
 
@@ -100,6 +112,7 @@ var makeTableFromCSV = function(args, cb = null) {
     var refs = args.references || [];
     var classes = args.classes || default_table_classes;
     var widths = args.widths || null;
+    var caption = args.caption || null;
 
     // target, url, title, refs = null, classes = default_table_classes) {
     console.log('makeTableFromCSV');
@@ -114,7 +127,7 @@ var makeTableFromCSV = function(args, cb = null) {
             if (tra) target.appendChild(tra);
             var ary = csvToArry(xhr.responseText);
             var reflink = { text: url, href: url };
-            var table = makeTableFromArry(ary, classes, reflink, widths);
+            var table = makeTableFromArry(ary, classes, reflink, widths, caption);
             target.appendChild(table);
         } else {
             target.innerText = 'Failed to load supporting data';
@@ -200,7 +213,7 @@ var makeChartFromArry = function(type, target, data, options = null, link = null
 
 
 var makeTableFromArry = function(data, classes = default_table_classes,
-                                 link = null, widths = null) {
+                                 link = null, widths = null, caption = null) {
     var telem = document.createElement('table');
     // console.log('widths');
     // console.log(JSON.stringify(widths,null,2));
@@ -215,25 +228,47 @@ var makeTableFromArry = function(data, classes = default_table_classes,
         if (j === data.length-1) tr_classes.push(classes.bottom);
         tr.className = tr_classes.join(' ');
         var row = data[j];
-        if (row.length > max_cols) max_cols = row.length;
-        for (i=0;i<row.length;i++) {
-            var td = document.createElement('td');
-            var td_classes = [];
-            if ((i === 0) && (j === 0)) td_classes.push(classes.uprlft);
-            if (i === 0) td_classes.push(classes.left);
-            else td_classes.push(i % 2 ? classes.ocol : classes.ecol);
-            if (i === row.length-1) td_classes.push(classes.right);
-            td.className = td_classes.join(' ');
-            var cell = row[i];
-            td.innerText = cell.toString();
-            if (widths && (i<widths.length)) {
-                td.width = widths[i].toString() +'%';
+        if (row) {
+            if (row.length > max_cols) max_cols = row.length;
+            for (i=0;i<row.length;i++) {
+                var td = document.createElement('td');
+                var td_classes = [];
+                if ((i === 0) && (j === 0)) td_classes.push(classes.uprlft);
+                if (i === 0) td_classes.push(classes.left);
+                else td_classes.push(i % 2 ? classes.ocol : classes.ecol);
+                if (i === row.length-1) td_classes.push(classes.right);
+                td.className = td_classes.join(' ');
+                var cell = row[i];
+                var cellStr = cell.toString();
+                var embedded_url = cellStr.match(/::([-\w\s]+)::(https?:\/\/.*)::/);
+                if (embedded_url) {
+                    var ana = document.createElement('a');
+                    ana.innerText = embedded_url[1];
+                    ana.href = embedded_url[2];
+                    td.appendChild(ana);
+                } else {
+                    td.innerText = cellStr;
+                }
+                if (widths && (i<widths.length)) {
+                    td.width = widths[i].toString() +'%';
+                }
+                tr.appendChild(td);
             }
-
-            tr.appendChild(td);
+            telem.appendChild(tr);
         }
-        telem.appendChild(tr);
     }
+
+    // optionally add a final row to contain a caption or note
+    if (caption) {
+        var ctr = document.createElement('tr');
+        var ctd = document.createElement('td');
+        ctd.colSpan = max_cols;
+        ctd.className = classes.caption;
+        ctd.innerText = caption;
+        ctr.appendChild(ctd);
+        telem.appendChild(ctr);
+    }
+
     // optionally add a final row that has a single td that contains
     // a link to the source data file for download
     if (link) {
@@ -251,11 +286,37 @@ var makeTableFromArry = function(data, classes = default_table_classes,
     return telem;
 };
 
-var finalizeReferences = function(target, refs) {
+var makeRefChunks = function(elems, r) {
+    rs = [];
+    var t;
+
+    /*jshint loopfunc: true */
+    elems.forEach(function(bibElem) {
+        if (r.hasOwnProperty(bibElem[0]) &&
+            r[bibElem[0]].length) {
+            t = document.createElement(bibElem[1]);
+            t.className = bibElem[2];
+            t.innerText = bibElem[3][0] + r[bibElem[0]] + bibElem[3][1];
+            if (bibElem[1] == 'a') {
+                t.href = r[bibElem[0]];
+            }
+        rs.push(t);
+        }
+    });
+    return rs;
+};
+
+
+var finalizeReferences = function(target, refs, notes) {
     console.log('finalizeReferences');
     if ((refs === null) || (refs === undefined))  refs = references;
+    if ((notes === null) || (notes === undefined)) notes = footnotes;
 
-    var mentions = target.getElementsByClassName('reference');
+    var ref_mentions = target.getElementsByClassName('reference');
+    var note_mentions = target.getElementsByClassName('footnote');
+    var mentions = [].concat([].slice.call(ref_mentions),
+                             [].slice.call(note_mentions));
+
     console.log(JSON.stringify(mentions,null,2));
     if (!mentions.length) return;
     // console.log('MENTIONS');
@@ -264,16 +325,20 @@ var finalizeReferences = function(target, refs) {
 
     for (var j=0; j<mentions.length; j++) {
         var refkey = mentions[j].getAttribute('ref');
+        var note = mentions[j].getAttribute('note');
+        if (note) notes[refkey] = { 'text': note };
         var suppress_anchor = mentions[j].getAttribute('suppress');
         console.log('refkey: ' + refkey);
         if (refkey && refkey.length) {
             // console.log('refkey: ' + refkey);
             ref_dst_anchor = '#ref_dst_' + refkey;
             ref_src_anchor = '#ref_src_' + j.toString();
-            if (refs.hasOwnProperty(refkey)) {
-                var ref = refs[refkey];
+            if (refs.hasOwnProperty(refkey) ||
+                notes.hasOwnProperty(refkey)) {
+                // var ref = refs[refkey];
                 // console.log(ref);
                 if (!uses.hasOwnProperty(refkey)) uses[refkey] = [];
+
                 uses[refkey].push(j);
 
                 if (!suppress_anchor) {
@@ -303,7 +368,7 @@ var finalizeReferences = function(target, refs) {
     var x0 = document.createElement('hr');
     refshome.appendChild(x0);
     var x1 = document.createElement('div');
-    x1.innerText = 'References';
+    x1.innerText = 'References & Footnotes';
     refshome.appendChild(x1);
     var t0 = document.createElement('table');
     var use_keys = Object.keys(uses);
@@ -330,32 +395,30 @@ var finalizeReferences = function(target, refs) {
         tr0.appendChild(td0);
         var s0 = document.createElement('span');
 
-        var r = refs[use_key];
-        var rs = [];
-        var t;
 
         var bibElems = [
-            ['title',   'span', 'reflist_title',   ['','']   ],
-            ['journal', 'span', 'reflist_journal', ['','']   ],
-            ['author',  'span', 'reflist_author',  ['','']   ],
-            ['date',    'span', 'reflist_year',    ['(',')'] ],
-            ['link',    'a',    'reflist_link',    ['<','>'] ],
-
+            ['author',       'span', 'reflist_author',  ['','']   ],
+            ['title',        'span', 'reflist_title',   ['','']   ],
+            ['journal',      'span', 'reflist_journal', ['','']   ],
+            ['institution',  'span', 'reflist_inst',    ['','']   ],
+            ['date',         'span', 'reflist_year',    ['(',')'] ],
+            ['pages',        'span', 'reflist_pages',   ['[',']'] ],
+            ['link',         'a',    'reflist_link',    ['<','>'] ],
         ];
 
-        /*jshint loopfunc: true */
-        bibElems.forEach(function(bibElem) {
-            if (r.hasOwnProperty(bibElem[0]) &&
-                r[bibElem[0]].length) {
-                t = document.createElement(bibElem[1]);
-                t.className = bibElem[2];
-                t.innerText = bibElem[3][0] + r[bibElem[0]] + bibElem[3][1];
-                if (bibElem[1] == 'a') {
-                    t.href = r[bibElem[0]];
-                }
-                rs.push(t);
-            }
-        });
+        var noteElems = [
+            ['text',   'span', 'footnote',         ['','']   ],
+        ];
+
+
+        var r = refs[use_key];
+        var n = notes[use_key];
+        var rs;
+        if (r) {
+            rs = makeRefChunks(bibElems, r);
+        } else if (n) {
+            rs = makeRefChunks(noteElems, n);
+        }
 
         for (var k=0; k<rs.length; k++) {
             s0.appendChild(rs[k]);
