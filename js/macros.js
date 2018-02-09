@@ -300,6 +300,7 @@ var makeRefChunks = function(elems, r) {
             t.innerText = bibElem[3][0] + r[bibElem[0]] + bibElem[3][1];
             if (bibElem[1] == 'a') {
                 t.href = r[bibElem[0]];
+                t.target = '_blank';
             }
         rs.push(t);
         }
@@ -307,70 +308,72 @@ var makeRefChunks = function(elems, r) {
     return rs;
 };
 
-
-var finalizeReferences = function(target, refs, notes) {
-    console.log('finalizeReferences');
-    if ((refs === null) || (refs === undefined))  refs = references;
-    if ((notes === null) || (notes === undefined)) notes = footnotes;
-
-    var ref_mentions = target.getElementsByClassName('reference');
-    var note_mentions = target.getElementsByClassName('footnote');
-    var mentions = [].concat([].slice.call(ref_mentions),
-                             [].slice.call(note_mentions));
-
-    console.log(JSON.stringify(mentions,null,2));
-    if (!mentions.length) return;
-    // console.log('MENTIONS');
-    // console.log(mentions);
+var createReferenceAnchors = function(mentions, refs, notes) {
     var uses = {};
-
+    var count = 0;
     for (var j=0; j<mentions.length; j++) {
-        var refkey = mentions[j].getAttribute('ref');
+        var refkeystr = mentions[j].getAttribute('ref');
         var note = mentions[j].getAttribute('note');
-        if (note) notes[refkey] = { 'text': note };
         var suppress_anchor = mentions[j].getAttribute('suppress');
-        console.log('refkey: ' + refkey);
-        if (refkey && refkey.length) {
-            // console.log('refkey: ' + refkey);
-            ref_dst_anchor = '#ref_dst_' + refkey;
-            ref_src_anchor = '#ref_src_' + j.toString();
-            if (refs.hasOwnProperty(refkey) ||
-                notes.hasOwnProperty(refkey)) {
-                // var ref = refs[refkey];
-                // console.log(ref);
-                if (!uses.hasOwnProperty(refkey)) uses[refkey] = [];
+        if (refkeystr && refkeystr.length) {
+            var refkeys = [ refkeystr ];
+            var refkeys_look_like_array = refkeystr.match(/^\[(.*)\]$/);
+            if (refkeys_look_like_array) {
+                refkeys = refkeys_look_like_array[1].split(/,/);
+            } else if (note) {
+                notes[refkeys[0]] = { 'text': note };
+            }
 
-                uses[refkey].push(j);
+            /* jshint loopfunc:true */
+            for (var l=0;l<refkeys.length;l++) {
+                var refkey = refkeys[l];
+                // console.log('refkey: ' + refkey);
+                ref_dst_anchor = '#ref_dst_' + refkey;
+                ref_src_anchor = 'ref_src_' + count.toString();
+                if (refs.hasOwnProperty(refkey) ||
+                    notes.hasOwnProperty(refkey)) {
+                    // var ref = refs[refkey];
+                    // console.log(ref);
+                    if (!uses.hasOwnProperty(refkey)) uses[refkey] = [];
 
-                if (!suppress_anchor) {
-                    var a = document.createElement('a');
-                    a.className = 'ref_marker';
-                    var b = document.createElement('sup');
-                    b.innerText = (j+1).toString();
-                    a.href = ref_dst_anchor;
-                    a.appendChild(b);
-                    mentions[j].appendChild(a);
-                    mentions[j].id = ref_src_anchor;
+                    uses[refkey].push(count);
+
+                    if (!suppress_anchor) {
+                        var a = document.createElement('a');
+                        a.className = 'ref_marker';
+                        var b = document.createElement('sup');
+                        b.innerText = (count+1).toString();
+                        a.href = ref_dst_anchor;
+                        a.appendChild(b);
+                        mentions[j].appendChild(a);
+                        mentions[j].id = ref_src_anchor;
+                        if (l < refkeys.length-1) {
+                            var comma = document.createElement('sup');
+                            comma.innerText = ',';
+                            mentions[j].appendChild(comma);
+                        }
+                    }
+                } else {
+                    var e = document.createElement('div');
+                    e.className = 'tbd';
+                    e.innerText = 'Reference error: "' + refkey + '" not defined';
+                    mentions[j].appendChild(e);
                 }
-            } else {
-                var e = document.createElement('div');
-                e.className = 'tbd';
-                e.innerText = 'Reference error: "' + refkey + '" not defined';
-                mentions[j].appendChild(e);
+
+                count += 1;
             }
         }
     }
+    return uses;
+};
 
-    // var refshome = target.getElementById('refs_container');
-    var refshomes = target.getElementsByClassName('references_container');
-    if (!refshomes.length) return;
-    var refshome = refshomes[0];
 
+var createReferenceTable = function(target, uses, refs, notes) {
     var x0 = document.createElement('hr');
-    refshome.appendChild(x0);
+    target.appendChild(x0);
     var x1 = document.createElement('div');
     x1.innerText = 'References & Footnotes';
-    refshome.appendChild(x1);
+    target.appendChild(x1);
     var t0 = document.createElement('table');
     var use_keys = Object.keys(uses);
     for (j=0; j<use_keys.length; j++) {
@@ -434,9 +437,36 @@ var finalizeReferences = function(target, refs, notes) {
         tr0.appendChild(td1);
         t0.appendChild(tr0);
     }
-    refshome.appendChild(t0);
+    target.appendChild(t0);
     
 };
+
+var finalizeReferences = function(target, refs, notes) {
+    console.log('finalizeReferences');
+    if ((refs === null) || (refs === undefined))  refs = references;
+    if ((notes === null) || (notes === undefined)) notes = footnotes;
+
+    var ref_mentions = target.getElementsByClassName('reference');
+    var note_mentions = target.getElementsByClassName('footnote');
+    var mentions = [].concat([].slice.call(ref_mentions),
+                             [].slice.call(note_mentions));
+
+    console.log(JSON.stringify(mentions,null,2));
+    if (!mentions.length) return;
+    // console.log('MENTIONS');
+    // console.log(mentions);
+
+    var uses = createReferenceAnchors(mentions, refs, notes);
+
+    // var refshome = target.getElementById('refs_container');
+    var refshomes = target.getElementsByClassName('references_container');
+    if (!refshomes.length) return;
+    var refshome = refshomes[0];
+
+    createReferenceTable(refshome, uses, refs, notes);
+
+};
+
 
 var applyActions = function(actions, cb = null) {
     async.each(actions,function(action,ecb) {
