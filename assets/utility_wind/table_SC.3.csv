@@ -1,7 +1,7 @@
-Year,Firms,Number of Companies,Number of Establishments,Number of Employees,Total Value of Shipments ($1000),% of Value of Shipment from ____Large Firms,% of Value of Shipment by HHI for 50 Largest Firms 
-2012,All firms,137,183,36955,"$16,919,698",100,
-2012,4 largest firms,,,,"$10,371,775",61.3,
-2012,8 largest firms,,,,"$12,317,540",72.8,
-2012,20 largest firms,,,,"$14,466,342",85.5,
-2012,50 largest firms,,,,"$16,073,713",95,1263.2
+Year,Firms,# Companies,# Establishments,# Employees,Total Shipments ($M),Fraction shipments by n largest firms,HHT n largest firms
+2012,All,137,183,36955,"$16,920",100,
+2012,4 largest,,,,"$10,372",61.3,
+2012,8 largest,,,,"$12,317",72.8,
+2012,20 largest,,,,"$14,466",85.5,
+2012,50 largest,,,,"$16,074",95,1263.2
 
