@@ -63,9 +63,10 @@ var placeImage = function(args, cb = null) {
     var url = args.source;
     var title = args.title || null;
     var refs = args.references || [];
+    var note = args.footnote || null;
     if (!Array.isArray(refs)) refs = [];
 
-    var tra = makeTitleAndRefAnchors(title, refs, 'image_heading');
+    var tra = makeTitleAndRefAnchors(title, refs, note, 'image_heading');
     if (tra) target.appendChild(tra);
     var img  = document.createElement('img');
     img.className = 'image';
@@ -83,23 +84,36 @@ var placeImage = function(args, cb = null) {
     if (cb) return cb(null);
 };
 
-var makeTitleAndRefAnchors = function(title, refs, tclass = 'table_heading') {
+var makeTitleAndRefAnchors = function(title, refs, note, tclass = 'table_heading') {
     var t = null;
     if (title) {
         t = document.createElement('div');
         t.innerText = title;
         t.className = tclass;
+        var x,y;
         for (var i=0;i<refs.length;i++) {
             console.log('ref: ' + refs[i]);
-            var x = document.createElement('span');
+            x = document.createElement('span');
             x.className = "reference";
             x.setAttribute('ref',refs[i]);
             t.appendChild(x);
             if (i < refs.length-1) {
-                var y = document.createElement('sup');
+                y = document.createElement('sup');
                 y.innerText = ',';
                 t.appendChild(y);
             }
+        }
+        if (note) {
+            if (refs.length) {
+                y = document.createElement('sup');
+                y.innerText = ',';
+                t.appendChild(y);
+            }
+            x = document.createElement('span');
+            x.className = "footnote";
+            x.setAttribute('ref',note.ref);
+            x.setAttribute('note',note.note);
+            t.appendChild(x);
         }
     }
     return t;
@@ -110,6 +124,7 @@ var makeTableFromCSV = function(args, cb = null) {
     var url = args.source;
     var title = args.title || null;
     var refs = args.references || [];
+    var note = args.footnote || null;
     var classes = args.classes || default_table_classes;
     var widths = args.widths || null;
     var caption = args.caption || null;
@@ -123,7 +138,7 @@ var makeTableFromCSV = function(args, cb = null) {
     xhr.onload = function() {
         // console.log(xhr);
         if ((xhr.status === 200) || (xhr.status === 0)){
-            var tra = makeTitleAndRefAnchors(title, refs, 'table_heading');
+            var tra = makeTitleAndRefAnchors(title, refs, note, 'table_heading');
             if (tra) target.appendChild(tra);
             var ary = csvToArry(xhr.responseText);
             var reflink = { text: url, href: url };
@@ -144,7 +159,7 @@ var makeChartFromCSV = function(args, cb = null) {
     var options= args.options;
     var title = args.title;
     var refs = args.references || [];
-
+    var note = args.footnote || null;
     console.log('makeChartFromCSV');
     var xhr = new XMLHttpRequest();
     xhr.open('GET',url);
@@ -154,7 +169,7 @@ var makeChartFromCSV = function(args, cb = null) {
             var ary = csvToArry(xhr.responseText);
             var reflink = { text: url, href: url };
             makeChartFromArry(type, target, ary, options, reflink);
-            var tra = makeTitleAndRefAnchors(title, refs, 'table_heading');
+            var tra = makeTitleAndRefAnchors(title, refs, notes, 'table_heading');
             if (tra) target.insertBefore(tra,target.firstChild);
         } else {
             target.innerText = 'Failed to load supporting data';
