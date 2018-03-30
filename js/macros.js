@@ -68,6 +68,7 @@ var placeImage = function(args, cb = null) {
 
     var tra = makeTitleAndRefAnchors(title, refs, note, 'image_heading');
     if (tra) target.appendChild(tra);
+
     var img  = document.createElement('img');
     img.className = 'image';
     img.src = url;
@@ -113,6 +114,7 @@ var makeTitleAndRefAnchors = function(title, refs, note, tclass = 'table_heading
             x.className = "footnote";
             x.setAttribute('ref',note.ref);
             x.setAttribute('note',note.note);
+            if (note.hasOwnProperty('link')) x.setAttribute('link',note.link);
             t.appendChild(x);
         }
     }
@@ -337,6 +339,11 @@ var createReferenceAnchors = function(mentions, refs, notes) {
                 refkeys = refkeys_look_like_array[1].split(/,/);
             } else if (note) {
                 notes[refkeys[0]] = { 'text': note };
+                var link = mentions[j].getAttribute('link');
+                if (link) {
+                    console.log('LINK',link);
+                    notes[refkeys[0]].link = link;
+                }
             }
 
             /* jshint loopfunc:true */
@@ -397,6 +404,7 @@ var createReferenceTable = function(target, uses, refs, notes) {
         var tr0 = document.createElement('tr');
         tr0.id = 'ref_dst_' + use_key;
         var td0 = document.createElement('td');
+        td0.width = '7%';
         var td1 = document.createElement('td');
         for (var i=0;i<uses[use_key].length;i++) {
             idx = uses[use_key][i];
@@ -427,6 +435,7 @@ var createReferenceTable = function(target, uses, refs, notes) {
 
         var noteElems = [
             ['text',   'span', 'footnote',         ['','']   ],
+            ['link',   'a',    'footnote_link',    ['<','>'] ],
         ];
 
 
@@ -461,10 +470,13 @@ var finalizeReferences = function(target, refs, notes) {
     if ((refs === null) || (refs === undefined))  refs = references;
     if ((notes === null) || (notes === undefined)) notes = footnotes;
 
+    /*
     var ref_mentions = target.getElementsByClassName('reference');
     var note_mentions = target.getElementsByClassName('footnote');
     var mentions = [].concat([].slice.call(ref_mentions),
                              [].slice.call(note_mentions));
+    */
+    var mentions = target.querySelectorAll('.reference, .footnote');
 
     console.log(JSON.stringify(mentions,null,2));
     if (!mentions.length) return;
