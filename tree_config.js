@@ -518,7 +518,7 @@ var indata = [
         info: {
             overview: {
                 name: 'Overview',
-                htfile: 'tabcontents/wind_overview.html',
+                htfile: 'tabcontents/wind/wind_overview.html',
             }
         },
     },
@@ -530,19 +530,19 @@ var indata = [
         info: {
             description: {
                 name: 'Descriptive Information',
-                htfile: 'tabcontents/wind_turb_descr.html',
+                htfile: 'tabcontents/wind/wind_turb_descr.html',
             },
             innov: {
                 name: 'Innovative Outcomes',
-                htfile: 'tabcontents/wind_turb_innov.html',
+                htfile: 'tabcontents/wind/wind_turb_innov.html',
             },
             strategic: {
                 name: 'Strategic Conditions',
-                htfile: 'tabcontents/wind_turb_strat.html',
+                htfile: 'tabcontents/wind/wind_turb_strat.html',
             },
             knowledge: {
                 name: 'Knowledge Conditions',
-                htfile: 'tabcontents/wind_turb_knowl.html',
+                htfile: 'tabcontents/win/wind_turb_knowl.html',
             },
         },
     },
@@ -554,19 +554,19 @@ var indata = [
         info: {
             description: {
                 name: 'Descriptive Information',
-                htfile: 'tabcontents/wind_blad_descr.html',
+                htfile: 'tabcontents/wind/wind_blad_descr.html',
             },
             innov: {
                 name: 'Innovative Outcomes',
-                htfile: 'tabcontents/wind_blad_innov.html',
+                htfile: 'tabcontents/wind/wind_blad_innov.html',
             },
             strategic: {
                 name: 'Strategic Conditions',
-                htfile: 'tabcontents/wind_blad_strat.html',
+                htfile: 'tabcontents/wind/wind_blad_strat.html',
             },
             knowledge: {
                 name: 'Knowledge Conditions',
-                htfile: 'tabcontents/wind_blad_knowl.html',
+                htfile: 'tabcontents/wind/wind_blad_knowl.html',
             },
         },
     },
@@ -577,19 +577,19 @@ var indata = [
         info: {
             description: {
                 name: 'Descriptive Information',
-                htfile: 'tabcontents/wind_nac_descr.html',
+                htfile: 'tabcontents/wind/wind_nac_descr.html',
             },
             innov: {
                 name: 'Innovative Outcomes',
-                htfile: 'tabcontents/wind_nac_innov.html',
+                htfile: 'tabcontents/wind/wind_nac_innov.html',
             },
             strategic: {
                 name: 'Strategic Conditions',
-                htfile: 'tabcontents/wind_nac_strat.html',
+                htfile: 'tabcontents/wind/wind_nac_strat.html',
             },
             knowledge: {
                 name: 'Knowledge Conditions',
-                htfile: 'tabcontents/wind_nac_knowl.html',
+                htfile: 'tabcontents/wind/wind_nac_knowl.html',
             },
         },
     },
@@ -600,19 +600,19 @@ var indata = [
         info: {
             description: {
                 name: 'Descriptive Information',
-                htfile: 'tabcontents/wind_twr_descr.html',
+                htfile: 'tabcontents/wind/wind_twr_descr.html',
             },
             innov: {
                 name: 'Innovative Outcomes',
-                htfile: 'tabcontents/wind_twr_innov.html',
+                htfile: 'tabcontents/wind/wind_twr_innov.html',
             },
             strategic: {
                 name: 'Strategic Conditions',
-                htfile: 'tabcontents/wind_twr_strat.html',
+                htfile: 'tabcontents/wind/wind_twr_strat.html',
             },
             knowledge: {
                 name: 'Knowledge Conditions',
-                htfile: 'tabcontents/wind_twr_knowl.html',
+                htfile: 'tabcontents/wind/wind_twr_knowl.html',
             },
         },
     },
@@ -623,19 +623,19 @@ var indata = [
         info: {
             description: {
                 name: 'Descriptive Information',
-                htfile: 'tabcontents/wind_prj_descr.html',
+                htfile: 'tabcontents/wind/wind_prj_descr.html',
             },
             innov: {
                 name: 'Innovative Outcomes',
-                htfile: 'tabcontents/wind_prj_innov.html',
+                htfile: 'tabcontents/wind/wind_prj_innov.html',
             },
             strategic: {
                 name: 'Strategic Conditions',
-                htfile: 'tabcontents/wind_prj_strat.html',
+                htfile: 'tabcontents/wind/wind_prj_strat.html',
             },
             knowledge: {
                 name: 'Knowledge Conditions',
-                htfile: 'tabcontents/wind_prj_knowl.html',
+                htfile: 'tabcontents/wind/wind_prj_knowl.html',
             },
         },
     },
@@ -646,19 +646,19 @@ var indata = [
         info: {
             description: {
                 name: 'Descriptive Information',
-                htfile: 'tabcontents/wind_prj_epc_descr.html',
+                htfile: 'tabcontents/wind/wind_prj_epc_descr.html',
             },
             innov: {
                 name: 'Innovative Outcomes',
-                htfile: 'tabcontents/wind_prj_epc_innov.html',
+                htfile: 'tabcontents/wind/wind_prj_epc_innov.html',
             },
             strategic: {
                 name: 'Strategic Conditions',
-                htfile: 'tabcontents/wind_prj_epc_strat.html',
+                htfile: 'tabcontents/wind/wind_prj_epc_strat.html',
             },
             knowledge: {
                 name: 'Knowledge Conditions',
-                htfile: 'tabcontents/wind_prj_epc_knowl.html',
+                htfile: 'tabcontents/wind/wind_prj_epc_knowl.html',
             },
         },
     },
@@ -669,19 +669,19 @@ var indata = [
         info: {
             description: {
                 name: 'Descriptive Information',
-                htfile: 'tabcontents/wind_ops_descr.html',
+                htfile: 'tabcontents/wind/wind_ops_descr.html',
             },
             innov: {
                 name: 'Innovative Outcomes',
-                htfile: 'tabcontents/wind_ops_innov.html',
+                htfile: 'tabcontents/wind/wind_ops_innov.html',
             },
             strategic: {
                 name: 'Strategic Conditions',
-                htfile: 'tabcontents/wind_ops_strat.html',
+                htfile: 'tabcontents/wind/wind_ops_strat.html',
             },
             knowledge: {
                 name: 'Knowledge Conditions',
-                htfile: 'tabcontents/wind_ops_knowl.html',
+                htfile: 'tabcontents/wind/wind_ops_knowl.html',
             },
         },
     },
