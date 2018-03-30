@@ -152,6 +152,7 @@ div.references_container {
     font-size: 80%;
 }
 div.references_container table tr td {
+    vertical-align: top;
     font-size: 80%;
 }
 div.generic_object_container {
@@ -170,6 +171,15 @@ a.reflist_link:link, a.reflist_link:visited {
     color: #202020;
 }
 a.reflist_link:hover {
+    color: #808080;
+}
+
+a.footnote_link:link, a.footnote_link:visited {
+    text-decoration: none;
+    font-family: sans-serif;
+    color: #202020;
+}
+a.footnote_link:hover {
     color: #808080;
 }
 
